@@ -1,0 +1,2022 @@
+<!doctype html>
+<html>
+  <head>
+    <meta property="og:image" content="https://gradle.org/assets/images/releases/gradle-default.png">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Gradle 9.6.0 Release Notes">
+    <meta property="og:site_name" content="Gradle Release Notes">
+    <meta property="og:description" content="We are excited to announce Gradle 9.6.0.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@gradle">
+    <meta name="twitter:creator" content="@gradle">
+    <meta name="twitter:title" content="Gradle 9.6.0 Release Notes">
+    <meta name="twitter:description" content="We are excited to announce Gradle 9.6.0.">
+    <meta name="twitter:image" content="https://gradle.org/assets/images/releases/gradle-default.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gradle 9.6.0 Release Notes</title>
+    <link rel="stylesheet" type="text/css" href="https://assets.gradle.com/lato/css/lato-font.css">
+    <style>/*
+ * Gradle Markdown Theme
+ */
+
+@font-face {
+    font-display: swap;
+    font-family: Lato;
+    font-weight: 500;
+    font-style: normal;
+    src: url("https://assets.gradle.com/lato/fonts/lato-semibold/lato-semibold.woff2") format("woff2"),
+         url("https://assets.gradle.com/lato/fonts/lato-semibold/lato-semibold.woff") format("woff");
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+body {
+    color: #02303A;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: #1DA2BD;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    text-decoration: underline;
+}
+
+h1 a:hover, h1 a:focus,
+h2 a:hover, h2 a:focus,
+h3 a:hover, h3 a:focus,
+h4 a:hover, h4 a:focus,
+h5 a:hover, h5 a:focus,
+h6 a:hover, h6 a:focus {
+    text-decoration: none;
+}
+
+a strong {
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+    font-size: 85%;
+    border: 1px solid #e5e5e5;
+    border-collapse: collapse;
+}
+
+.table-contents {
+    overflow-x: auto;
+    padding-left: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+td,
+th {
+    padding: .25rem .5rem;
+    border: 1px solid #e5e5e5;
+}
+
+th {
+    text-align: left;
+}
+
+.content tbody tr:nth-child(odd) td,
+.content tbody tr:nth-child(odd) th {
+    background-color: #f9f9f9;
+}
+
+/* typography */
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: #02303A;
+    text-rendering: optimizeLegibility;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    margin-top: 2.5rem;
+    font-size: 1.5rem;
+}
+
+h3 {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+}
+
+h4 {
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+}
+
+h5, h6 {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+}
+
+dt {
+    font-weight: 700;
+}
+
+dd {
+    margin-bottom: 0.5rem;
+    margin-left: 1.5em;
+}
+
+dd p {
+    margin-top: 0;
+}
+
+hr {
+    position: relative;
+    border: 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #fff;
+    margin: 0;
+}
+
+ul, ol, dl {
+    list-style-position: outside;
+    line-height: 1.6;
+    margin: 0 0 1.25rem 1.5em;
+    padding: 0;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+dl dt {
+    font-weight: normal;
+}
+
+tfoot {
+    font-style: italic;
+}
+
+caption {
+    background: #eee;
+}
+
+abbr, acronym {
+    font-size: 85%;
+    font-weight: bold;
+    color: #555;
+    text-transform: uppercase;
+}
+
+abbr[title], acronym[title] {
+    cursor: help;
+    border-bottom: 1px dotted #e5e5e5;
+}
+
+b, strong, dfn {
+    font-weight: 700;
+}
+
+em, dfn {
+    font-style: italic;
+}
+
+sup, sub {
+    line-height: 0;
+}
+
+address {
+    margin: 0 0 1.5em;
+    font-style: italic;
+}
+
+del {
+    color: #666;
+}
+
+blockquote {
+    padding: .5rem 1rem;
+    margin: .8rem 0;
+    color: #7a7a7a;
+    border-left: .25rem solid #e5e5e5;
+}
+
+blockquote p:first-child {
+    margin-top: 0;
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+@media (min-width: 30em) {
+    blockquote {
+        padding-right: 5rem;
+        padding-left: 1.25rem;
+    }
+}
+
+/* layout */
+.container, .appendix, .book, .chapter, .footer {
+    background-color: white;
+    border-radius: 5px;
+    padding: 1.5rem;
+}
+
+.container, .appendix, .footer {
+    max-width: 45rem;
+}
+
+.container {
+    margin: 2rem auto;
+}
+
+.content, .text-container {
+    width: 60rem;
+}
+
+.content-container {
+    min-height: calc(100vh - 60px);
+}
+
+.content, .sidebar {
+    display: inline-block;
+}
+
+.sidebar {
+    float: right;
+    width: 12.5rem;
+}
+
+@media screen and (max-width: 45em) {
+    .container, .footer {
+        max-width: 100%;
+    }
+    .content {
+        display: block;
+        width: auto;
+    }
+    .sidebar {
+        display: none;
+    }
+    .container,
+    .main-content > .appendix,
+    .main-content > .book,
+    .main-content > .chapter {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+/* code */
+code {
+    font-size: 90%;
+    background-color: #f7f7f8;
+    border-radius: 4px;
+}
+
+*:not(pre) > code {
+    letter-spacing: 0;
+    padding: 0.1em 0.5ex;
+}
+
+.hljs {
+    background: #f7f7f8 !important;
+}
+
+/* util classes */
+.left {
+    float: left !important;
+}
+
+p .left {
+    margin: 1.5em 1.5em 1.5em 0;
+    padding: 0;
+}
+
+.right {
+    float: right !important;
+}
+
+p .right {
+    margin: 1.5em 0 1.5em 1.5em;
+    padding: 0;
+}
+
+.small {
+    font-size: .8em;
+    margin-bottom: 1.875em;
+    line-height: 1.875em;
+}
+
+.large {
+    font-size: 1.2em;
+    line-height: 2.5em;
+    margin-bottom: 1.25em;
+}
+
+.hide {
+    display: none;
+}
+
+.quiet {
+    color: #666;
+}
+
+.loud {
+    color: #000;
+}
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.highlight {
+    background: #ff0;
+}
+
+.added {
+    background: #060;
+    color: #fff;
+}
+
+.removed {
+    background: #900;
+    color: #fff;
+}
+
+.first {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.last {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.top {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.bottom {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.citetitle {
+    font-style: normal;
+}
+
+table th.border-right {
+    border-right: solid #d0d0d0 1px;
+}
+
+table th.no-border-bottom {
+    border-bottom: none;
+}
+
+h3.releaseinfo {
+    color: #999;
+    font-weight: normal;
+    margin-top: -0.5em;
+}
+
+/* Site header specific styles */
+.hamburger {
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: auto;
+    padding: 11px 10px;
+}
+
+.hamburger:focus {
+    outline: 0;
+}
+
+.hamburger__bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: black;
+    border-radius: 1px;
+}
+
+.hamburger__bar + .hamburger__bar {
+    margin-top: 4px;
+}
+
+.site-header {
+    background-color: white;
+}
+
+/* Override javadoc styles */
+.site-header div {
+    font-family: 'Lato', Arial, sans-serif;
+}
+
+.site-header__navigation-header a {
+    align-self: center;
+    border-bottom: 0 none;
+    height: 36px;
+}
+
+.site-header .site-header-version {
+    align-self: center;
+    color: #1da2bd;
+    font-size: 20px;
+    padding-left: 1px;
+    margin-top: 22px;
+}
+
+.site-header__navigation {
+    display: flex;
+    flex-direction: column;
+}
+
+.site-header__navigation-header {
+    display: flex;
+    flex: 0 0 auto;
+    margin-left: 12px;
+}
+
+.site-header__navigation-collapsible {
+    flex: 1 1 auto;
+    height: 210px;
+    overflow: visible;
+    transition: height 0.3s ease;
+}
+
+.site-header__navigation-items {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    max-height: 210px; /* This matches the collapsible height above */
+    margin: 0 20px;
+    padding-top: 12px;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.site-header__navigation-item {
+    flex: 0 1 auto;
+    font-size: 16px;
+    width: 250px;
+}
+
+.site-header__navigation-item .site-header__navigation-link {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    padding: 5px;
+    line-height: 20px;
+    border: 0 none;
+    color: #02303A;
+    text-decoration: none;
+    transition: none;
+    -o-transition: none;
+    -moz-transition: none;
+    -webkit-transition: none;
+}
+
+.site-header__navigation-item .site-header__navigation-link:hover {
+    color: #1DA2BD;
+}
+
+.site-header__navigation-item .site-header__navigation-link.active {
+    font-weight: 500;
+}
+
+/* Navigation submenu styles */
+.site-header__navigation-submenu-section {
+    position: relative;
+}
+
+.site-header__navigation-submenu-section .site-header__down-arrow {
+    width: 8px;
+    height: 8px;
+    margin-left: 2px;
+    margin-top: 0;
+}
+
+.site-header__navigation-submenu-section .site-header__navigation-link:hover path {
+    fill: none;
+}
+
+.site-header__navigation-submenu-section .site-header__navigation-submenu .site-header__navigation-submenu-item-link:hover {
+    color: #1DA2BD;
+}
+
+.site-header__navigation-submenu-section .site-header__navigation-submenu {
+    display: none;
+    width: 170px;
+    background-color: white;
+    top: 100%;
+    left: 7px; /* NOTE: This must match the padding of .site-header__navigation-link */
+    padding: 3px 10px 6px 10px;
+    z-index: 100;
+}
+
+.site-header__navigation-submenu-section .site-header__navigation-submenu .site-header__navigation-submenu-item-link {
+    width: 100%;
+    color: #02303A;
+    white-space: nowrap;
+    display: inline-block;
+    padding-top: 3px;
+    border: 0 none;
+    transition: none;
+    -o-transition: none;
+    -moz-transition: none;
+    -webkit-transition: none;
+}
+
+.site-header__navigation-submenu-section .site-header__navigation-submenu .site-header__navigation-submenu-item-link .site-header__navigation-submenu-item-link-text {
+    display: inline-block;
+    font-size: 16px;
+}
+
+.site-header__navigation-submenu-section.open .site-header__navigation-submenu {
+    display: block;
+}
+
+/* Top navigation mobile styles */
+@media (max-width: 1023px) {
+    .site-header__navigation-collapsible--collapse {
+        height: 0;
+        overflow-y: hidden;
+    }
+
+    .site-header__navigation-submenu-section .site-header__navigation-submenu {
+        padding: 0 1rem 0.5rem 1.5rem;
+        display: block;
+        top: 30px !important;
+        left: 0 !important;
+    }
+
+    .site-header__navigation-item,
+    .site-header__navigation-submenu-section .site-header__navigation-submenu .site-header__navigation-submenu-item-link .site-header__navigation-submenu-item-link-text {
+        font-size: 18px;
+    }
+
+    .site-header {
+        padding: 5px 12px;
+    }
+
+    .site-header-version {
+        display: none;
+    }
+
+    .site-footer__navigation {
+        flex-direction: column;
+    }
+
+    .site-footer__links {
+        flex-wrap: wrap;
+    }
+
+    .site-footer__link-group {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Top navigation desktop styles */
+@media (min-width: 1024px) {
+    .site-header {
+        -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .15);
+        -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .15);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .15);
+        z-index: 1;
+    }
+
+    /*
+      Pushes the section headings to just below the top nav bar when a user
+      navigates directly to section anchors.
+     */
+    #content h2[id], #content h3[id], #content h4[id] {
+        padding-top: 60px;
+    }
+
+    #content h2[id] {
+        /* Little extra room above h2s */
+        margin-top: -1em;
+    }
+
+    #content h3[id], #content h4[id] {
+        margin-top: -60px;
+    }
+
+    .site-header__navigation {
+        flex-direction: row;
+    }
+
+    .site-header__navigation-button {
+        display: none;
+    }
+
+    .site-header__navigation-items {
+        flex-direction: row;
+        align-items: center;
+        float: right;
+        width: auto;
+        padding-top: 0;
+    }
+
+    .site-header__navigation-item {
+        width: auto;
+    }
+
+    .site-header__navigation-item .site-header__navigation-link {
+        padding: 15px 18px;
+    }
+
+    .site-header__navigation-item:last-of-type .site-header__navigation-link {
+        padding-right: 0;
+    }
+
+    .site-header__navigation-link--button {
+        padding: 6px 12px;
+    }
+
+    .site-header__navigation-collapsible {
+        height: auto;
+    }
+
+    .site-header__navigation-submenu-section .site-header__navigation-submenu {
+        position: absolute;
+        border: 1px solid #9a9a9a;
+        border-radius: 3px;
+    }
+
+    .site-header__navigation-submenu-section:hover .site-header__navigation-submenu {
+        display: block;
+    }
+
+    /*
+      Pushes the section headings to just below the top nav bar when a user
+      navigates directly to section anchors. It doesn't work if you try
+      to apply the padding and margin to the `h` elements directly.
+     */
+    .chapter a[name],
+    .chapter .anchor {
+        padding-top: 60px;
+        margin-top: -60px;
+        text-decoration: none;
+        border: none;
+        display: inline-block;
+    }
+}
+
+/* Side Navigation styles */
+/* Docs Navigation */
+.docs-navigation .search-container {
+    display: none;
+    margin-bottom: 1rem;
+}
+
+.docs-navigation {
+    display: none;
+    padding-left: 5px;
+    padding: 20px 20px 20px 26px;
+    background: #f8f8f7;
+    border-right: 1px solid #e7e7e9;
+    overflow: auto;
+}
+
+.docs-navigation a {
+    color: #02303A;
+    display: block;
+    font-size: .80rem;
+    position: relative;
+}
+
+.docs-navigation a:focus {
+    outline: none;
+}
+
+.docs-navigation a:hover {
+    color: #35c1e4;
+    text-decoration: none;
+}
+
+.docs-navigation a code {
+    color: #02303A;
+    overflow-wrap: break-word;
+    padding: 0;
+    word-break: break-all;
+}
+
+.docs-navigation a.active {
+    text-decoration: underline;
+    outline: 0;
+    border: none;
+    outline-style: none;
+    -moz-outline-style: none;
+}
+
+.docs-navigation a.active:hover {
+    color: #35c1e4;
+    text-decoration: underline;
+}
+
+.docs-navigation .reference-links {
+    font-size: 1.0rem;
+}
+
+.docs-navigation ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.docs-navigation li > ul > li a {
+    font-size: 14px;
+    color: #7d7d7d;
+}
+
+.docs-navigation ul:last-of-type {
+    margin-bottom: 0;
+}
+
+.docs-navigation li {
+    margin-top: 0.3334em;
+    line-height: 1.3334;
+}
+.docs-navigation li:last-of-type {
+    margin-bottom: 0;
+}
+
+.docs-navigation .nav-dropdown:before {
+    content: '\2023';
+    font-size: 28px;
+    position: absolute;
+    margin-left: -14px;
+    margin-top: -8px;
+}
+
+.docs-navigation .nav-dropdown.expanded:before {
+    transform: rotate(90deg);
+}
+
+.docs-navigation > ul ul,
+.docs-navigation > ul ul ul {
+    display: none;
+    height: 0;
+    margin-left: 1rem;
+}
+
+.docs-navigation > ul ul:target,
+.docs-navigation > ul ul:target ul,
+.docs-navigation > ul .nav-dropdown.expanded ~ ul {
+    display: block;
+    height: auto;
+}
+
+.docs-navigation h3 {
+    font-size: .95rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 1.5em 0 0;
+}
+
+@media screen and (min-width: 45rem) {
+    .main-content {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* User guide navigation appears for desktops */
+@media screen and (min-width: 64rem) {
+    .docs-navigation {
+        display: block;
+        flex: 0 0 auto;
+        width: 13.75rem;
+    }
+
+    .main-content > .appendix,
+    .main-content > .book,
+    .main-content > .chapter {
+        flex: 0 0 auto;
+        margin: 0 auto;
+    }
+}
+
+/* Table of Contents */
+.toc p {
+    font-size: 1em;
+}
+.toc dl dt,
+.toc a {
+    line-height: 1.0;
+}
+.toc dl dt {
+    padding-bottom: 0.625rem;
+}
+.toc a {
+    color: #1DA2BD;
+}
+.toc p {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+.toc dl, .list-of-examples dl {
+    margin-left: 0;
+}
+
+.navheader, .navfooter, .navbar {
+    display: none;
+}
+
+/* Userguide Meta */
+.chapter-meta {
+    float: right;
+    text-align: right;
+}
+
+.chapter-meta .edit-link {
+    color: #999;
+    font-size: 0.9em;
+    padding-right: 3px;
+}
+
+.chapter-meta .edit-link svg {
+    margin-right: 1px;
+}
+
+/* Clever use of RTL to fill in all stars to left of hover position */
+.rating {
+    direction: rtl;
+}
+.rating > .star {
+    cursor: pointer;
+    padding: 3px;
+}
+.rating > .star:hover > svg > g,
+.rating > .star:hover ~ .star > svg > g,
+.rating > .star.selected > svg > g,
+.rating > .star.selected ~ .star > svg > g {
+    fill: #999;
+}
+
+/* Footer styles */
+.site-footer {
+}
+
+.site-footer__navigation {
+    display: flex;
+    padding: 30px 12px;
+    max-width: 62.5rem;
+    margin: 0 auto;
+    padding-left: 5rem
+}
+
+.site-footer__links {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.site-footer__links .site-footer__links-list {
+    list-style-type: none;
+    margin: 0;
+}
+
+.site-footer__links .site-footer__links-list a {
+    color: #ddd;
+}
+
+.site-footer__link-group {
+    flex: 1 1 auto;
+    flex-basis: 175px;
+}
+
+.site-footer__link-group header {
+    color: #fff;
+}
+
+.site-footer__subscribe-newsletter .newsletter-form__header h5 {
+    color: #fff;
+    margin-top: 0;
+}
+
+.site-footer__subscribe-newsletter p {
+    font-size: 0.875rem;
+    margin: 2px 0 0 2px;
+    opacity: 0.7;
+}
+.site-footer__subscribe-newsletter .disclaimer {
+    color: #ddd;
+    font-size: 0.75rem;
+    opacity: 0.55;
+}
+.site-footer__subscribe-newsletter .newsletter-form {
+    padding-top: 6px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.site-footer__subscribe-newsletter .email,
+.site-footer__subscribe-newsletter .submit {
+    height: 40px;
+}
+
+.site-footer__subscribe-newsletter .email {
+    line-height: 40px;
+    width: 250px;
+    color: #1DA2BD;
+    font-size: 16px;
+    padding-left: 20px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-style: none;
+}
+
+.site-footer__subscribe-newsletter .submit {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    width: 100px;
+    background-color: #1BA8CB;
+    color: white;
+    font-weight: 500;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-style: none;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+/* Secondary footer (below) */
+.site-footer-secondary {
+    background-color: white;
+    border-top: 1px solid #e7e7e9;
+    width: 100%;
+    z-index: 1;
+}
+
+.site-footer-secondary__contents {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 75rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+}
+
+/*
+ * 1. Value is the largest computed width among 'site-footer__copy' and 'site-footer__links'.
+ */
+.site-footer__copy,
+.site-footer__secondary-links {
+    flex-grow: 0;
+    /* 1. */
+}
+
+/*
+ * 1. 'flex-shrink: 1' is applied to the element with the smallest computed width among
+ *    'site-footer__copy' and 'site-footer__links'.
+ */
+.site-footer__copy {
+    flex-shrink: 1;
+    /* 1. */
+}
+
+.site-footer__logo {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.site-footer__logo svg {
+    width: 35px;
+    height: 35px;
+}
+
+/*
+ * 1. 'flex-shrink: 0' is applied to the element with the largest computed width among
+ *    'site-footer__copy' and 'site-footer__links'.
+ */
+.site-footer__secondary-links {
+    flex-shrink: 0;
+    /* 1 */
+    text-align: right;
+    white-space: nowrap;
+}
+
+.site-footer-secondary a {
+    color: #999;
+}
+
+.site-footer-secondary__links a:not(:last-child) {
+    padding-right: 10px;
+}
+
+.site-footer-secondary__links a:not(:first-child) {
+    padding-left: 10px;
+}
+
+@media all and (max-width: 29.99rem) {
+    .site-footer__navigation {
+        margin: 0.5rem auto;
+    }
+
+    .site-footer__rights,
+    .site-footer-secondary__links {
+        display: none;
+    }
+
+    .site-footer__link-group {
+        margin-bottom: 1rem;
+    }
+
+    .site-footer__logo {
+        order: 1;
+        text-align: left;
+    }
+
+    .site-footer__copy {
+        order: 2;
+        text-align: right;
+    }
+}
+
+/* Avoid the footer taking up much of the screen on short displays */
+@media all and (max-height: 56.25rem) {
+    .site-footer__navigation {
+        margin: 1rem auto 1rem auto;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+@media screen and (min-width: 84.375rem) {
+    .ui-logos .ui-logo {
+        box-shadow: 0 6px 15px 1px rgba(0, 0, 0, 0.56);
+    }
+}
+
+/* User Manual Home */
+.technology-logos,
+.ui-logos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.technology-logo,
+.ui-logo {
+    flex: 0 1 auto;
+}
+
+.ui-logo {
+    width: 224px;
+    height: 135px;
+    margin: 12px;
+}
+
+.segmentedlist {
+    margin-top: 1.6em;
+    margin-bottom: 1.6em;
+}
+
+.segmentedlist table, .table table {
+    border: solid #d0d0d0 1px;
+    border-collapse: collapse;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.segmentedlist th {
+    padding: 0.3em 0.8em;
+    color: #505050;
+}
+
+.segmentedlist td {
+    padding: 0.3em 0.8em;
+}
+
+.segmentedlist dt,
+.variablelist dt {
+    font-weight: bold;
+}
+
+.variablelist dt a {
+    font-weight: normal;
+}
+
+.itemizedlist li p,
+.example pre,
+.figure pre {
+    margin-top: 0;
+    margin-bottom: 0.625rem;
+}
+
+.example, .figure, .table {
+    margin-top: 0;
+    margin-bottom: 1.8em;
+}
+
+.example .title, .figure .title, .table .title {
+    margin-top: 0;
+    margin-bottom: 0.6rem;
+}
+
+.example-contents > p {
+    margin: 0;
+}
+
+.example-break, .figure-break {
+    display: none;
+}
+
+.exampleLocation .emphasis em {
+    font-style: normal;
+    font-weight: bold;
+}
+
+.appendix h1 {
+    margin-bottom: 1.0em;
+}
+
+.footnote sup {
+    vertical-align: baseline;
+    font-size: 100%;
+}
+
+.note p:first-child, .tip p:first-child {
+    margin-top: 0;
+}
+
+.note > :last-child, .tip > :last-child, .examplelocation > :last-child {
+    margin-bottom: 0;
+}
+
+.note, .tip, .exampleLocation {
+    border-left: 1px solid #ddddd8;
+    color: rgba(0,0,0,0.6);
+    margin: 0 0 1.5em 1.25em;
+    padding-left: 1.125em;
+    padding-right: 1.25em;
+}
+
+.note p:first-child:before {
+    content: "Note: ";
+    font-weight: bold;
+}
+
+.tip p:first-child:before {
+    content: "Tip: ";
+    font-weight: bold;
+}
+
+.note .title, .tip .title {
+    margin-left: 0px;
+}
+
+.tip h1, .note h1
+.tip h2, .note h2,
+.tip h3, .note h3,
+.tip h4, .note h4,
+.tip h5, .note h5,
+.tip h6, .note h6 {
+    margin-top: 0;
+}
+
+.literal, .filename {
+    white-space: nowrap;
+}
+
+.caution {
+    font-size: 15px;
+    color: #AF5252;
+    background-color: pink;
+    font-style: italic;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 0 5px;
+    margin-bottom: 8px;
+}
+
+.caution :last-child {
+    margin-bottom: 0;
+}
+
+table .caution {
+    font-size: 13px;
+    margin-right: 6px;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    display: inline;
+    text-transform: lowercase;
+}
+
+.signature {
+    background-color: #f5f5f5;
+    border: solid #e7e7e7 1px;
+    color: #666666;
+    width: auto;
+    margin-right: -0.8em;
+    margin-left: -0.8em;
+    padding: 0.3em 0.8em;
+    font-weight: normal;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-family: "Ubuntu Mono", courier, monospace;
+    text-shadow: none;
+}
+
+.signature .literal {
+    color: #04598D;
+    padding-left: 0.1em;
+}
+
+.sr-only {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Single page html
+ */
+.book .chapter {
+    margin-top: 4em;
+}
+
+.toc .chapter {
+    padding-top: 0;
+}
+
+div.example code.filename {
+    font-weight: bold;
+}
+
+/* Clickable links on section headers */
+.section .title > a.section-anchor {
+    display: inline-block;
+    text-decoration: none !important;
+    margin-left: -1ch;
+    opacity: 0;
+    padding-right: 0.4ch;
+}
+
+.section .title > a.section-anchor:before {
+    content: "\00A7";
+    display: inline-block;
+    font-size: 0.8em;
+    vertical-align: bottom;
+}
+
+.section .title:hover > a {
+    opacity: 1;
+}
+
+.section .title:hover > a.section-anchor,
+.section .title a.section-anchor:hover {
+    border: inherit;
+    opacity: 1;
+}
+
+
+.docs-navigation {
+    width: 18rem;
+    padding: 20px 20px 20px 26px;
+    background: #f8f8f7;
+    border-right: 1px solid #e7e7e9;
+    overflow: auto;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.main-content {
+    overflow: auto;
+    display: flex;
+}
+
+.content {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.content .chapter,
+.content .book {
+    padding: 2rem 2.4rem;
+}
+
+.toc a:active {
+    font-weight: 500;
+}
+
+.site-header  {
+    margin-bottom: 1rem;
+}
+
+.site-header__navigation-submenu-item {
+    padding: 2px 0;
+}
+
+.site-footer {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px 0 40px 0;
+}
+
+#header {
+    margin-left: 0;
+}
+
+#header > h1:first-child {
+    margin-bottom: 40px;
+}
+
+@media screen and (min-width: 64rem) {
+    #header {
+        margin-bottom: 20px;
+    }
+
+    .site-header  {
+        margin-bottom: 0;
+        z-index: 2;
+    }
+
+    .site-header__navigation-header {
+        margin-top: -7px;
+    }
+
+    .site-header__navigation-submenu-section:after {
+        content: '\2023';
+        font-size: 28px;
+        position: absolute;
+        transform: rotate(90deg);
+        margin-right: 10px;
+        top: 5px;
+        right: -7px;
+    }
+
+    .site-footer__navigation {
+        flex-wrap: wrap;
+    }
+
+    .site-footer__link-group {
+        flex: 1 1 auto;
+    }
+
+    .site-footer__links {
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (min-width: 75rem) {
+    .content .chapter,
+    .content .book {
+        box-sizing: content-box;
+    }
+
+    #content {
+        padding-right: 260px;
+        margin: 0;
+    }
+
+    .appendix .toc,
+    .book .home .toc,
+    .chapter .toc {
+        position: fixed;
+        margin: 0 auto;
+        padding-bottom: 0;
+        right: 0;
+        top: 65px;
+        width: 260px;
+        z-index: 1;
+        overflow: auto;
+        border-radius: 0 0 5px 0;
+        max-height: calc(100% - 123px);
+        margin-right: 15px;
+    }
+
+    .appendix .toctitle,
+    .book .home .toctitle,
+    .chapter .toctitle {
+        margin-top: 1.3em;
+    }
+
+    .appendix .toc > dl,
+    .book .home .toc > dl,
+    .chapter .toc > dl {
+        /* margin-left have to increase if you change border thickness of active toc item */
+        margin-left: 1px;
+        border-left: 1px solid #666;
+        margin-bottom: 0;
+        padding-right: 10px;
+        padding-bottom: 0.5rem;
+        background-color: #fff;
+    }
+
+    .appendix .toc > dl > dt,
+    .appendix .toc > dl > dt:last-of-type
+    .book .home .toc > dl > dt,
+    .book .home .toc > dl > dt:last-of-type
+    .chapter .toc > dl > dt,
+    .chapter .toc > dl > dt:last-of-type {
+        padding: 0.5rem 0;
+        margin: 0;
+    }
+
+    .appendix .toc a,
+    .book .home .toc a,
+    .chapter .toc a {
+        padding-left: 10px;
+        font-weight: 400;
+        color: #02303A;
+        font-size: .95rem;
+        display: inline-block;
+    }
+
+    .appendix .toc a.active,
+    .book .home .toc a.active,
+    .chapter .toc a.active {
+        font-weight: 500;
+        border-left: 3px solid #01303a;
+        margin-left: -2px;
+        padding-left: 9px;
+    }
+
+    .site-footer__navigation {
+        flex-wrap: wrap;
+        margin-left: auto;
+        padding-left: 3rem;
+    }
+
+    .site-footer__link-group {
+        flex: 0.15 1 auto;
+    }
+
+    .site-footer__subscribe-newsletter {
+        /* A fix so subscribe disclaimer does not go under long ToC */
+        max-width: calc(100% - 17rem);
+    }
+}
+
+@media screen and (min-width: 80rem) {
+    .site-footer__subscribe-newsletter {
+        max-height: none;
+    }
+}
+
+@media screen and (min-width: 100rem) {
+    .content .chapter,
+    .content .book {
+        max-width: 60.5rem;
+    }
+
+    #header {
+        margin: 0 auto;
+    }
+
+    #content {
+        padding-right: 0;
+        margin: 0 auto;
+    }
+
+    .appendix .toc,
+    .book .home .toc,
+    .chapter .toc {
+        right: initial;
+        margin-left: 62.5rem;
+    }
+
+    .site-footer__navigation {
+        padding-left: 0;
+    }
+
+    .site-footer__link-group {
+        flex: 0.2 1 auto;
+    }
+}
+
+@media screen and (min-width: 112rem) {
+    .content .chapter,
+    .content .book {
+        max-width: 62.5rem;
+        margin: 0 auto;
+        position: relative;
+        padding-right: 3.5rem;
+        left: -130px;
+    }
+
+    .appendix .toc,
+    .book .home .toc,
+    .chapter .toc {
+        right: initial;
+        margin-left: 64.5rem;
+    }
+
+    .site-footer__link-group {
+        flex: 0.2 1 auto;
+    }
+}
+
+@supports (-moz-appearance:meterbar) and (background-blend-mode:difference,normal) {
+    /* Firefox only */
+    .site-header__navigation-submenu-section:after {
+        top: 2px;
+        right: -4px;
+    }
+}
+</style>
+    <style>.table-of-contents a {
+  color: #02303A;
+}
+
+#fixed-issues-list ul,
+.table-of-contents ul,
+.topic ul {
+  list-style-type: none;
+}
+
+#fixed-issues-list li:before,
+.topic ul li:before {
+  color: #02303A;
+  content: '\002022';
+  font: 0.9em bold sans-serif;
+  margin-left: -1em;
+  margin-right: 0.4em;
+}
+
+li.mainTopic :before {
+  color: #02303A;
+  content: '\002022';
+  font: 0.9em bold sans-serif;
+  margin-left: -1em;
+  margin-right: 0.4em;
+}
+
+li.subTopic :before {
+  color: #02303A;
+  content: '\002022';
+  font: 0.9em bold sans-serif;
+  margin-left: 3em;
+  margin-right: 0.4em;
+}
+
+pre {
+    overflow: auto;
+}
+
+ul.toc-sub {
+  margin-bottom: 0;
+}
+
+button.display-toggle {
+  cursor: pointer;
+}
+
+a.incubating-marker {
+  display: inline;
+  color: white;
+  font-style: italic;
+  font-size: 0.6em;
+  text-shadow: none;
+  margin-left: 0.6em;
+  border-radius: 6px;
+  background-color: rgb(160, 160, 160);
+  border: 1px solid rgb(150, 150, 150);
+  padding: 1px 5px;
+  box-shadow: none;
+  cursor: pointer;
+  vertical-align: 1px;
+}
+
+a.incubating-marker:hover {
+  text-decoration: none;
+  border: 1px solid rgb(150, 150, 150);
+}
+
+/* Same as code highlighting values in docs.css */
+.java_keyword {
+  color: #963;
+}
+.java_comment {
+  color: #998;
+}
+.java_plain, .java_type {
+
+}
+.java_separator {
+
+}
+.java_operator {
+  color: #555;
+}
+.java_literal {
+  color: #d14;
+}
+
+/* Embedded Videos */
+.youtube-video {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  div {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    aspect-ratio: 16/9;
+    max-width: 900px;
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>
+    <script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+  function injectIssues(url, insertAfter, idBase, loadingText, messageFunction) {
+    var loadingPara = document.createElement('p');
+    loadingPara.className = idBase + '-loading';
+    loadingPara.textContent = loadingText + ' …';
+    insertAfter.insertAdjacentElement('afterend', loadingPara);
+
+    var animate = true;
+    var paraFadeOut = function() {
+      if (!animate) return;
+      loadingPara.style.transition = 'opacity 0.08s';
+      loadingPara.style.opacity = '0';
+      setTimeout(function() {
+        if (animate) paraFadeIn();
+      }, 80);
+    };
+    var paraFadeIn = function() {
+      if (!animate) return;
+      loadingPara.style.transition = 'opacity 0.08s';
+      loadingPara.style.opacity = '1';
+      setTimeout(function() {
+        if (animate) paraFadeOut();
+      }, 80);
+    };
+    var finishAnimation = function() {
+      animate = false;
+      if (loadingPara.parentNode) {
+        loadingPara.parentNode.removeChild(loadingPara);
+      }
+    };
+    paraFadeOut();
+
+    fetch(url)
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        finishAnimation();
+        var para = document.createElement('p');
+        para.textContent = messageFunction(data.length);
+        insertAfter.insertAdjacentElement('afterend', para);
+
+        if (data.length > 0) {
+          var list = document.createElement('ul');
+          list.id = idBase + '-list';
+          list.style.display = 'none';
+          list.style.overflow = 'hidden';
+          list.style.transition = 'height 0.5s ease-out';
+          para.insertAdjacentElement('afterend', list);
+
+          data.forEach(function(issue) {
+            var li = document.createElement('li');
+            var link = document.createElement('a');
+            link.href = issue.link;
+            link.textContent = issue.key;
+
+            li.appendChild(document.createTextNode('['));
+            li.appendChild(link);
+            li.appendChild(document.createTextNode('] - ' + issue.summary));
+            list.appendChild(li);
+          });
+
+          // slideDown implementation
+          list.style.display = 'block';
+          var height = list.scrollHeight + 'px';
+          list.style.height = '0px';
+          // Trigger reflow
+          list.offsetHeight;
+          list.style.height = height;
+          setTimeout(function() {
+            list.style.height = '';
+            list.style.overflow = '';
+            list.style.transition = '';
+          }, 500);
+        }
+      })
+      .catch(function() {
+        finishAnimation();
+        var errorPara = document.createElement('p');
+        errorPara.textContent = 'Unable to retrieve the issue information. You may not be connected to the Internet, or there may have been an error.';
+        errorPara.style.fontWeight = 'bold';
+        errorPara.style.color = 'red';
+        insertAfter.insertAdjacentElement('afterend', errorPara);
+      });
+  }
+
+  var fixedIssuesHeader = document.getElementById('fixed-issues');
+  if (fixedIssuesHeader) {
+    injectIssues(
+      "https://services.gradle.org/fixed-issues/9.6.0",
+      fixedIssuesHeader.parentElement,
+      "fixed-issues",
+      "Retrieving the fixed issue information for 9.6.0",
+      function(i) {
+        return i + " issues have been fixed in Gradle 9.6.0.";
+      }
+    );
+  }
+
+  var knownIssuesHeader = document.getElementById('known-issues');
+  if (knownIssuesHeader) {
+    var knownIssuesParent = knownIssuesHeader.parentElement;
+    var insertAfter = knownIssuesParent.nextElementSibling;
+    injectIssues(
+      "https://services.gradle.org/known-issues/9.6.0",
+      insertAfter || knownIssuesParent,
+      "known-issues",
+      "Retrieving the known issue information for 9.6.0",
+      function(i) {
+        if (i > 0) {
+          return i + " issues are known to affect Gradle 9.6.0.";
+        } else {
+          return "There are no known issues of Gradle 9.6.0 at this time.";
+        }
+      }
+    );
+  }
+});
+</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/stackoverflow-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/groovy.min.js"></script>
+    <script>hljs.highlightAll();</script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Gradle Release Notes</h1>
+      <p>We are excited to announce Gradle 9.6.0 (released <a href="https://gradle.org/releases/">2026-06-18</a>).</p>
+      <p>This release improves <a href="#configuration-cache-improvements">Configuration Cache</a> hit rates by precisely tracking project properties supplied through system properties and environment variables.</p>
+      <p>The <a href="#cli-logging-and-problem-reporting">CLI, logging, and problem reporting</a> gains a <code>--non-interactive</code> option to disable interactive prompts when running Gradle in automated environments, support for the <code>NO_COLOR</code> environment variable to suppress color output, and sortable columns in HTML test reports.</p>
+      <p><a href="#build-authoring-improvements">Build authoring</a> includes an important deprecation: implicit property and method lookup in parent projects now emits a warning and will be removed in Gradle 10. A new <code>NO_IMPLICIT_LOOKUP_IN_PARENT_PROJECTS</code> feature preview lets you adopt the Gradle 10 behavior early once related deprecations are addressed.</p>
+      <p><a href="#core-plugin-and-plugin-authoring-enhancements">Plugin authors</a> get clearer validation errors when the <code>@Optional</code> annotation is misused on task properties.</p>
+      <p>Finally, <a href="#security-and-infrastructure">security and infrastructure</a> improvements reduce IO load from Gradle's file-based journals, delivering significant performance gains on low-IOPS storage typical of cloud CI runners.</p>
+      <p>We would like to thank the following community members for their contributions to this release of Gradle: <a href="https://github.com/Ahar28">Aharnish Solanki</a>, <a href="https://github.com/benediktjohannes">Benedikt Johannes</a>, <a href="https://github.com/devareddy05">Devendra Reddy Pennabadi</a>, <a href="https://github.com/smplio">Dmytro Rodionov</a>, <a href="https://github.com/Dreeam-qwq">Dreeam</a>, <a href="https://github.com/EliasHdzR">Elías Hernández Rodríguez</a>, <a href="https://github.com/Juneezee">Eng Zer Jun</a>, <a href="https://github.com/FinlayRJW">FinlayRJW</a>, <a href="https://github.com/kamalkansal27">Kamal Kansal</a>, <a href="https://github.com/Marcono1234">Marcono1234</a>, <a href="https://github.com/runningcode">Nelson Osacky</a>, <a href="https://github.com/hfhbd">Philip Wedemann</a>, <a href="https://github.com/rkdfx">Ravi</a>, <a href="https://github.com/rpalcolea">Roberto Perez Alcolea</a>, <a href="https://github.com/rschmitt">Ryan Schmitt</a>, <a href="https://github.com/sschuberth">Sebastian Schuberth</a>, <a href="https://github.com/seung-hun-h">seunghun.ham</a>, <a href="https://github.com/sk-reddy17">sk-reddy17</a>, <a href="https://github.com/Suvrat1629">Suvrat Acharya</a>, <a href="https://github.com/VedantMadane">Vedant Madane</a>.</p>
+      <p>Be sure to check out the <a href="https://roadmap.gradle.org">public roadmap</a> for insight into what's planned for future releases.</p>
+      <section class="table-of-contents">
+        <h2>Table Of Contents</h2>
+        <ul class="toc">
+          <li class="mainTopic"><a href="#upgrade-instructions">Upgrade instructions</a></li>
+          <li class="mainTopic"><a href="#new-features-and-usability-improvements">New features and usability improvements</a></li>
+          <li class="subTopic"><a href="#configuration-cache-improvements">Configuration Cache improvements</a></li>
+          <li class="subTopic"><a href="#cli-logging-and-problem-reporting">CLI, logging, and problem reporting</a></li>
+          <li class="subTopic"><a href="#build-authoring-improvements">Build authoring improvements</a></li>
+          <li class="subTopic"><a href="#core-plugin-and-plugin-authoring-enhancements">Core plugin and plugin authoring enhancements</a></li>
+          <li class="subTopic"><a href="#security-and-infrastructure">Security and infrastructure</a></li>
+          <li class="mainTopic"><a href="#promoted-features">Promoted features</a></li>
+          <li class="mainTopic"><a href="#documentation-and-training">Documentation and training</a></li>
+          <li class="subTopic"><a href="#user-manual">User Manual</a></li>
+          <li class="mainTopic"><a href="#fixed-issues">Fixed issues</a></li>
+          <li class="mainTopic"><a href="#known-issues">Known issues</a></li>
+          <li class="mainTopic"><a href="#external-contributions">External contributions</a></li>
+          <li class="mainTopic"><a href="#reporting-problems">Reporting problems</a></li>
+        </ul>
+      </section>
+      <section class="topic">
+        <h2><a href="#upgrade-instructions" id="upgrade-instructions">Upgrade instructions</a></h2>
+        <p>Switch your build to use Gradle 9.6.0 by updating the <a href="userguide/gradle_wrapper.html">wrapper</a> in your project:</p>
+        <pre><code class="language-text">./gradlew :wrapper --gradle-version=9.6.0 &amp;&amp; ./gradlew :wrapper
+</code></pre>
+        <p>See the <a href="userguide/upgrading_version_9.html#changes_9.6.0">Gradle 9.x upgrade guide</a> to learn about deprecations, breaking changes, and other considerations when upgrading to Gradle 9.6.0.</p>
+        <p>For Java, Groovy, Kotlin, and Android compatibility, see the <a href="userguide/compatibility.html">full compatibility notes</a>.</p>
+      </section>
+      <section class="topic">
+        <h2><a href="#new-features-and-usability-improvements" id="new-features-and-usability-improvements">New features and usability improvements</a></h2>
+        <h3><a href="#configuration-cache-improvements" id="configuration-cache-improvements">Configuration Cache improvements</a></h3>
+        <p>Gradle provides a <a href="userguide/configuration_cache.html">Configuration Cache</a> that improves build time by caching the result of the configuration phase and reusing it for subsequent builds.</p>
+        <h4><a href="#improved-hit-rates-for-project-properties-set-via-system-properties-and-environment-variables" id="improved-hit-rates-for-project-properties-set-via-system-properties-and-environment-variables">Improved hit rates for project properties set via system properties and environment variables</a></h4>
+        <p><a href="userguide/build_environment.html#sec:project_properties">Project properties</a> can be supplied not only on the command line with <code>-P</code> or in <code>gradle.properties</code> files, but also through <code>org.gradle.project.&lt;name&gt;</code> system properties and <code>ORG_GRADLE_PROJECT_&lt;name&gt;</code> environment variables.</p>
+        <p>Previously, changing any such system property or environment variable invalidated the <a href="userguide/configuration_cache.html">Configuration Cache</a>, even if the affected project property was never used during the configuration phase.</p>
+        <p>Consider the following Kotlin DSL example:</p>
+        <pre><code class="language-kotlin">tasks.register("printValue") {
+    val value = providers.gradleProperty("value").orElse("N/A")
+    doLast {
+        println("value: ${value.get()}")
+    }
+}
+</code></pre>
+        <p>Previous versions of Gradle were unable to reuse the cache entry when re-running with a different value passed via a system property or environment variable:</p>
+        <pre><code class="language-shell">$ ./gradlew --configuration-cache printValue -Dorg.gradle.project.value=1
+
+Calculating task graph as configuration cache cannot be reused because the set of system properties prefixed by 'org.gradle.project.' has changed: 'org.gradle.project.value' was added.
+
+&gt; Task :printValue
+value: 1
+
+...
+Configuration cache entry stored.
+</code></pre>
+        <p>In this release, Gradle detects that the <code>value</code> property is never read during the configuration phase and reuses the existing cache entry, regardless of how the property was supplied:</p>
+        <pre><code class="language-shell">$ ./gradlew --configuration-cache printValue -Dorg.gradle.project.value=2
+
+Reusing configuration cache.
+
+&gt; Task :printValue
+value: 2
+
+...
+Configuration cache entry reused.
+</code></pre>
+        <p>The same precise tracking now also applies to <code>ORG_GRADLE_PROJECT_*</code> environment variables, bringing parity with the improvements introduced for <code>-P</code> properties in Gradle 9.1.0 and for <code>gradle.properties</code> files in Gradle 9.4.0. The existing cache entry is reused even when the property is supplied through an environment variable:</p>
+        <pre><code class="language-shell">$ ORG_GRADLE_PROJECT_value=3 ./gradlew --configuration-cache printValue
+Reusing configuration cache.
+&gt; Task :printValue
+value: 3
+...
+Configuration cache entry reused.
+</code></pre>
+        <p>For builds that pass many project properties on the command line or via environment variables, particularly in CI, this change will significantly improve cache hit rates.</p>
+        <p>See the <a href="userguide/configuration_cache_requirements.html#config_cache:requirements:reading_sys_props_and_env_vars">Reading System Properties and Environment Variables</a> section in the Gradle User Manual for more information.</p>
+        <h3><a href="#cli-logging-and-problem-reporting" id="cli-logging-and-problem-reporting">CLI, logging, and problem reporting</a></h3>
+        <p>Gradle provides an intuitive <a href="userguide/command_line_interface.html">command-line interface</a>, detailed <a href="userguide/logging.html">logs</a>, and a structured <a href="userguide/reporting_problems.html#sec:generated_html_report">problems report</a> that helps developers quickly identify and resolve build issues.</p>
+        <h4><a href="#non-interactive-mode" id="non-interactive-mode">Non-interactive mode</a></h4>
+        <p>Gradle now supports a <code>--non-interactive</code> <a href="userguide/command_line_interface.html">command-line</a> option to disable all interactive console prompting. This is useful for running Gradle in automated environments such as CI pipelines, scripts, and AI agents where no user input is available.</p>
+        <p>See the <a href="userguide/command_line_interface.html#sec:non_interactive">Non-interactive mode</a> section in the Gradle User Manual for more information.</p>
+        <h4><a href="#no-color-support" id="no-color-support">NO_COLOR support</a></h4>
+        <p>Gradle now honors the <code>NO_COLOR</code> environment variable following the <a href="https://no-color.org/">no-color.org</a> convention. When <code>NO_COLOR</code> is set and non-empty, Gradle suppresses color output while preserving other styling (bold, underline) and rich features (progress bars, animations).</p>
+        <p><img src="release-notes-assets/no-color-screenshot.png" alt="NO-COLOR Screenshot"></p>
+        <p>See the <a href="userguide/build_environment.html#sec:gradle_environment_variables">Environment variables</a> section in the Gradle User Manual for more information.</p>
+        <h4><a href="#sortable-columns-in-html-test-reports" id="sortable-columns-in-html-test-reports">Sortable columns in HTML test reports</a></h4>
+        <p>The <a href="userguide/java_testing.html#test_reporting">HTML test report</a> generated by the <a href="javadoc/org/gradle/api/tasks/testing/Test.html"><code>Test</code></a> task now supports sorting by clicking column headers.</p>
+        <p>Clicking a column header sorts rows by that column. A second click reverses the direction, and a third click restores the original order.</p>
+        <p>Numeric columns (Tests, Failures, Skipped, Duration) default to descending on first click so the most interesting values surface first. Success rate defaults to ascending so flaky or broken classes appear at the top.</p>
+        <p><img src="release-notes-assets/test-report-sorting.png" alt="Test report sorting"></p>
+        <p>This makes it easier to identify problematic test classes in large projects without manually scanning through the report.</p>
+        <p>See the <a href="userguide/java_testing.html#test_reporting">Test reporting</a> section in the Gradle User Manual for more information.</p>
+        <h3><a href="#build-authoring-improvements" id="build-authoring-improvements">Build authoring improvements</a></h3>
+        <p>Gradle provides <a href="userguide/getting_started_dev.html">rich APIs</a> for build engineers and plugin authors, enabling the creation of custom, reusable build logic and better maintainability.</p>
+        <h4><a href="#deprecation-of-implicit-lookup-of-properties-and-methods-in-parent-projects" id="deprecation-of-implicit-lookup-of-properties-and-methods-in-parent-projects">Deprecation of implicit lookup of properties and methods in parent projects</a></h4>
+        <p>In Gradle's <a href="userguide/groovy_build_script_primer.html">Groovy DSL</a>, when a child project's build script references a property or method that isn't defined locally, the resolution mechanism walks up the parent projects looking for a match. For example:</p>
+        <pre><code class="language-groovy">// build.gradle (root project)
+ext.foo = "hello"
+</code></pre>
+        <pre><code class="language-groovy">// child/build.gradle
+println(foo) // Resolved through parent projects — now deprecated
+</code></pre>
+        <p>This behavior is not unique to Groovy DSL, as this inherently comes from how <code>findProperty()</code> and related methods work. However, such implicit inheritance creates hidden coupling between projects and makes builds harder to reason about (a typo silently resolves to an ancestor's definition instead of failing).</p>
+        <p>Starting in Gradle 9.6.0, both implicit references and explicit APIs (<code>findProperty()</code>, <code>property()</code>, <code>hasProperty()</code>) emit a deprecation warning when they get resolved from parent projects. This behavior will be removed in Gradle 10.</p>
+        <p>See the <a href="userguide/upgrading_version_9.html#deprecated_implicit_lookup_in_parent_projects">upgrade guide</a> for migration paths, including <code>gradle.properties</code>, convention plugins, and explicit references.</p>
+        <h5><a href="#opt-into-gradle-10-behavior-by-disabling-implicit-lookup-in-parent-projects" id="opt-into-gradle-10-behavior-by-disabling-implicit-lookup-in-parent-projects">Opt into Gradle 10 behavior by disabling implicit lookup in parent projects</a></h5>
+        <p>Once you have addressed all related deprecations, you can enable the new <code>NO_IMPLICIT_LOOKUP_IN_PARENT_PROJECTS</code> feature preview to adopt the Gradle 10 behavior early.</p>
+        <p>This prevents new accidental implicit lookups from parent projects:</p>
+        <pre><code class="language-groovy">// settings.gradle[.kts]
+enableFeaturePreview("NO_IMPLICIT_LOOKUP_IN_PARENT_PROJECTS")
+</code></pre>
+        <h4><a href="#groovy-dsl-type-coercions-for-lazy-properties" id="groovy-dsl-type-coercions-for-lazy-properties">Groovy DSL type coercions for lazy properties</a></h4>
+        <p>Gradle's <a href="userguide/lazy_configuration.html">lazy property</a> types (<code>Property&lt;T&gt;</code>, <code>ListProperty&lt;T&gt;</code>, <code>SetProperty&lt;T&gt;</code>) previously required exact type matches when assigning values in the <a href="userguide/groovy_build_script_primer.html">Groovy DSL</a>. This meant that common idioms that worked with eager properties would fail with <code>IllegalArgumentException</code> when a plugin author migrated to lazy properties.</p>
+        <p>Gradle now automatically coerces values in the following cases:</p>
+        <p><strong>String to File</strong>: A <code>String</code> assigned to a <code>Property&lt;File&gt;</code>, <code>RegularFileProperty</code>, or <code>DirectoryProperty</code> is resolved relative to the project directory:</p>
+        <pre><code class="language-groovy">task.workingDir = '../my-build'
+</code></pre>
+        <p><strong>Single value to collection</strong>: A single <code>T</code> or <code>T[]</code> assigned to a <code>ListProperty&lt;T&gt;</code> or <code>SetProperty&lt;T&gt;</code> is wrapped into a one-element collection:</p>
+        <pre><code class="language-groovy">task.filter.includePatterns = 'Foo'
+task.filter.includePatterns = ['Foo', 'Bar'] as String[]
+</code></pre>
+        <p>These coercions bring the Groovy DSL experience for lazy properties closer to what users expect from eager properties, making it easier for plugin authors to migrate to the <a href="userguide/lazy_configuration.html">lazy configuration</a> API without breaking their users' build scripts.</p>
+        <h3><a href="#core-plugin-and-plugin-authoring-enhancements" id="core-plugin-and-plugin-authoring-enhancements">Core plugin and plugin authoring enhancements</a></h3>
+        <p>Gradle provides a comprehensive plugin system, including built-in <a href="userguide/plugin_reference.html">Core Plugins</a> for standard tasks and powerful APIs for creating custom plugins.</p>
+        <h4><a href="#improved-validation-errors-for-optional-annotation-misuse" id="improved-validation-errors-for-optional-annotation-misuse">Improved validation errors for <code>@Optional</code> annotation misuse</a></h4>
+        <p>The <a href="userguide/java_gradle_plugin.html#sec:plugin_validation"><code>validatePlugins</code></a> task now produces more specific error messages when the <code>@Optional</code> annotation is used incorrectly on task properties.</p>
+        <p>If a property is annotated with only <code>@Optional</code> and no input or output annotation, Gradle explains that <code>@Optional</code> is a modifier annotation with no effect on its own:</p>
+        <pre><code class="language-text">Type 'MyTask' property 'badProperty' is missing an input or output annotation.
+
+Reason: @Optional is a modifier annotation and has no effect without an input or output annotation.
+
+Possible solutions:
+  1. Add an input or output annotation.
+  2. Replace @Optional with @Internal for ignoring this property.
+</code></pre>
+        <p>Similarly, combining <code>@Internal</code> with <code>@Optional</code> now produces a dedicated error explaining that <code>@Optional</code> is redundant on properties excluded from up-to-date checks:</p>
+        <pre><code class="language-text">Type 'MyTask' property 'badProperty' annotated with @Internal should not be also annotated with @Optional.
+
+Reason: @Internal properties are excluded from up-to-date checks; @Optional is redundant and not allowed here.
+</code></pre>
+        <p>See the <a href="userguide/java_gradle_plugin.html#sec:plugin_validation">Validating plugins</a> section in the Gradle User Manual for more information.</p>
+        <h3><a href="#security-and-infrastructure" id="security-and-infrastructure">Security and infrastructure</a></h3>
+        <p>Gradle provides robust <a href="userguide/security.html">security features and underlying infrastructure</a> to ensure that builds are secure, reproducible, and easy to maintain.</p>
+        <h4><a href="#performance-improvements-in-cloud-runners" id="performance-improvements-in-cloud-runners">Performance improvements in cloud runners</a></h4>
+        <p>Gradle uses several file-based journals to track operations.</p>
+        <p>Through community feedback and our own analysis, we confirmed that the implementation used in Gradle was generating a high volume of I/O operations. On storage with limited IOPS, typical in cloud environments using network-attached block storage such as AWS EBS, this led to I/O throttling and significant slowdowns during disk-heavy operations.</p>
+        <p>With this release, the implementation has been improved, resulting in significant performance gains on low IOPS storage and minor improvements across the board:</p>
+        <p><img src="release-notes-assets/gradle-io-optimizations.png" alt="Gradle IO Optimizations"></p>
+      </section>
+      <section class="topic">
+        <h2><a href="#promoted-features" id="promoted-features">Promoted features</a></h2>
+        <p>Promoted features are features that were incubating in previous versions of Gradle but are now supported and subject to backward compatibility. See the User Manual section on the "<a href="userguide/feature_lifecycle.html">Feature Lifecycle</a>" for more information.</p>
+        <p>The following are the features that have been promoted in this Gradle release.</p>
+        <ul>
+          <li><a href="javadoc/org/gradle/api/tasks/wrapper/Wrapper.html#getNetworkTimeout()"><code>getNetworkTimeout()</code></a> in <code>Wrapper</code></li>
+        </ul>
+      </section>
+      <section class="topic">
+        <h2><a href="#documentation-and-training" id="documentation-and-training">Documentation and training</a></h2>
+        <h3><a href="#user-manual" id="user-manual">User Manual</a></h3>
+        <p>The User Manual gained two significant additions in this release:</p>
+        <p>The <a href="userguide/gradle_on_ci.html">Gradle on CI</a> section returns with refreshed guidance for running Gradle in continuous integration environments, including dedicated pages for <a href="userguide/github-actions.html">GitHub Actions</a>, <a href="userguide/jenkins.html">Jenkins</a>, <a href="userguide/teamcity.html">TeamCity</a>, <a href="userguide/gitlab-ci.html">GitLab CI</a>, <a href="userguide/circleci.html">CircleCI</a>, <a href="userguide/travis-ci.html">Travis CI</a>, and <a href="userguide/docker.html">Docker</a>.</p>
+        <p>The <a href="userguide/best_practices.html">Best Practices</a> catalog grew with two new entries:</p>
+        <ul>
+          <li><a href="userguide/best_practices_general.html">Avoid <code>afterEvaluate</code></a> — explains why the callback creates ordering problems and what to use instead.</li>
+          <li><a href="userguide/best_practices_security.html">Validate the Gradle Wrapper</a> — updated guidance on verifying the integrity of the wrapper.</li>
+        </ul>
+      </section>
+      <section class="topic">
+        <h2><a href="#fixed-issues" id="fixed-issues">Fixed issues</a></h2>
+      </section>
+      <section class="topic">
+        <h2><a href="#known-issues" id="known-issues">Known issues</a></h2>
+        <p>Known issues are problems that were discovered post-release that are directly related to changes made in this release.</p>
+      </section>
+      <section class="topic">
+        <h2><a href="#external-contributions" id="external-contributions">External contributions</a></h2>
+        <p>We love getting contributions from the Gradle community. For information on contributing, please see <a href="https://gradle.org/contribute">gradle.org/contribute</a>.</p>
+      </section>
+      <section class="topic">
+        <h2><a href="#reporting-problems" id="reporting-problems">Reporting problems</a></h2>
+        <p>If you find a problem with this release, please file a bug on <a href="https://github.com/gradle/gradle/issues">GitHub Issues</a> adhering to our issue guidelines. If you're not sure if you're encountering a bug, please use the <a href="https://discuss.gradle.org/c/help-discuss">forum</a>.</p>
+        <p>We hope you will build happiness with Gradle, and we look forward to your feedback via <a href="https://twitter.com/gradle">Twitter</a> or on <a href="https://github.com/gradle">GitHub</a>.</p>
+      </section>
+    </div>
+  </body>
+</html>

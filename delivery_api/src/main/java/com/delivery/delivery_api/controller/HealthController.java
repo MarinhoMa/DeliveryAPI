@@ -1,4 +1,4 @@
-package com.deliverytech.delivery.controller;
+package com.delivery.delivery_api.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +25,7 @@ public class HealthController {
     public ResponseEntity<Map<String, String>> health() {
         // Usando Map.of() (Java 9+) para criar mapa imutável
         Map<String, String> healthInfo = Map.of(
-            "status", "UP",
+            "status", "Funcionando",
             "timestamp", LocalDateTime.now().format(FORMATTER),
             "service", "Delivery API",
             "javaVersion", System.getProperty("java.version"),
