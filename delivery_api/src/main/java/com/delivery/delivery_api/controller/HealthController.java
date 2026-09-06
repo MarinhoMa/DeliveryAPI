@@ -25,12 +25,12 @@ public class HealthController {
     public ResponseEntity<Map<String, String>> health() {
         // Usando Map.of() (Java 9+) para criar mapa imutável
         Map<String, String> healthInfo = Map.of(
-            "status", "Funcionando",
+            "status", "FUNCIONANDO !!!",
             "timestamp", LocalDateTime.now().format(FORMATTER),
-            "service", "Delivery API",
+            "service", "Delivery API AGOSTO",
             "javaVersion", System.getProperty("java.version"),
             "springBootVersion", getClass().getPackage().getImplementationVersion() != null
-                ? getClass().getPackage().getImplementationVersion() : "3.2.x",
+                ? getClass().getPackage().getImplementationVersion() : "4.11.x",
             "environment", "development"
         );
 
@@ -46,9 +46,9 @@ public class HealthController {
         AppInfo appInfo = new AppInfo(
             "Delivery Tech API",
             "1.0.0",
-            "[Nome do Aluno]",
+            "Anderson Klay Demoner ",
             System.getProperty("java.version"),
-            "Spring Boot 3.2.x",
+            "Spring Boot 4.11.x",
             LocalDateTime.now().format(FORMATTER),
             "Sistema de delivery moderno desenvolvido com as mais recentes tecnologias Java"
         );
