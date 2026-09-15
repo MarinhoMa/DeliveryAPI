@@ -1,170 +1,203 @@
 package com.delivery.delivery_api.controller;
 
-import com.delivery.delivery_api.entity.Pedido;
+import com.delivery.delivery_api.dto.ApiResponseWrapper;
+import com.delivery.delivery_api.dto.CalculoPedidoDTO;
+import com.delivery.delivery_api.dto.CalculoPedidoResponseDTO;
+import com.delivery.delivery_api.dto.PagedResponseWrapper;
+import com.delivery.delivery_api.dto.PedidoDTO;
+import com.delivery.delivery_api.dto.PedidoResponseDTO;
+import com.delivery.delivery_api.dto.StatusPedidoDTO;
 import com.delivery.delivery_api.enums.StatusPedido;
 import com.delivery.delivery_api.service.PedidoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
-// Iniciando o controller REST para o Pedido
 @RestController
-@RequestMapping("/pedidos")
+@RequestMapping("/api/pedidos")
 @CrossOrigin(origins = "*")
+@Tag(name = "Pedidos", description = "Operações relacionadas aos pedidos")
 public class PedidoController {
 
-    // injetando o serviço de Pedido
     @Autowired
     private PedidoService pedidoService;
 
-    /*
-    Criar novo pedido
-    através do verbo POST estamos criando o pedido, associando
-    um cliente e um restaurante através dos parâmetros da requisição (@RequestParam)
-    */
     @PostMapping
-    public ResponseEntity<?> criarPedido(@RequestParam Long clienteId,
-                                          @RequestParam Long restauranteId) {
-        try {
-            Pedido pedido = pedidoService.criarPedido(clienteId, restauranteId);
-            // retornando o pedido criado com status 201 Created
-            return ResponseEntity.status(HttpStatus.CREATED).body(pedido);
-            // capture através do illegalArgumentException caso o cliente ou
-            // restaurante não existam, e retorne um status 400 Bad Request
-        } catch (IllegalArgumentException e) {
-            // retornando o erro com status 400 Bad Request e a mensagem de erro
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-        } catch (Exception e) {
-            // retornando o erro com status 500 Internal Server Error e a mensagem de erro
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                // corpo da resposta com a mensagem de erro
-                .body("Erro interno do servidor");
-        }
+    @Operation(summary = "Criar pedido",
+               description = "Cria um novo pedido no sistema")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Pedido criado com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+        @ApiResponse(responseCode = "404", description = "Cliente ou restaurante não encontrado"),
+        @ApiResponse(responseCode = "409", description = "Produto indisponível")
+    })
+    public ResponseEntity<ApiResponseWrapper<PedidoResponseDTO>> criarPedido(
+            @Valid @RequestBody
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                description = "Dados do pedido a ser criado"
+            ) PedidoDTO dto) {
+
+        PedidoResponseDTO pedido = pedidoService.criarPedido(dto);
+        ApiResponseWrapper<PedidoResponseDTO> response =
+            new ApiResponseWrapper<>(true, pedido, "Pedido criado com sucesso");
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    /*
-    Adicionar item ao pedido
-    através do verbo POST estamos adicionando um produto (e sua quantidade)
-    a um pedido já existente, identificado pelo pedidoId na URL
-    */
-    @PostMapping("/{pedidoId}/itens")
-    public ResponseEntity<?> adicionarItem(@PathVariable Long pedidoId,
-                                            @RequestParam Long produtoId,
-                                            @RequestParam Integer quantidade) {
-        try {
-            Pedido pedido = pedidoService.adicionarItem(pedidoId, produtoId, quantidade);
-            // retornando o pedido atualizado com o novo item, status 200 OK
-            return ResponseEntity.ok(pedido);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erro interno do servidor");
-        }
-    }
-
-    /*
-    Confirmar pedido
-    através do verbo PUT estamos alterando o status do pedido para CONFIRMADO,
-    encerrando a fase de montagem (adição de itens)
-    */
-    @PutMapping("/{pedidoId}/confirmar")
-    public ResponseEntity<?> confirmarPedido(@PathVariable Long pedidoId) {
-        try {
-            Pedido pedido = pedidoService.confirmarPedido(pedidoId);
-            return ResponseEntity.ok(pedido);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erro interno do servidor");
-        }
-    }
-
-    /*
-    Buscar pedido por ID
-    */
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
-        Optional<Pedido> pedido = pedidoService.buscarPorId(id);
+    @Operation(summary = "Buscar pedido por ID",
+               description = "Recupera um pedido específico com todos os detalhes")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Pedido encontrado"),
+        @ApiResponse(responseCode = "404", description = "Pedido não encontrado")
+    })
+    public ResponseEntity<ApiResponseWrapper<PedidoResponseDTO>> buscarPorId(
+            @Parameter(description = "ID do pedido")
+            @PathVariable Long id) {
 
-        if (pedido.isPresent()) {
-            return ResponseEntity.ok(pedido.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        PedidoResponseDTO pedido = pedidoService.buscarPedidoPorId(id);
+        ApiResponseWrapper<PedidoResponseDTO> response =
+            new ApiResponseWrapper<>(true, pedido, "Pedido encontrado");
+
+        return ResponseEntity.ok(response);
     }
 
-    /*
-    Listar pedidos por cliente
-    retorna o histórico de pedidos de um cliente específico,
-    ordenado (no repository) do mais recente para o mais antigo
-    */
+    @GetMapping
+    @Operation(summary = "Listar pedidos",
+               description = "Lista pedidos com filtros opcionais e paginação")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Lista recuperada com sucesso")
+    })
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<PagedResponseWrapper<PedidoResponseDTO>> listar(
+            @Parameter(description = "Status do pedido")
+            @RequestParam(required = false) StatusPedido status,
+            @Parameter(description = "Data inicial")
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
+            @Parameter(description = "Data final")
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim,
+            @Parameter(description = "Parâmetros de paginação")
+            Pageable pageable) {
+
+        Page<PedidoResponseDTO> pedidos = pedidoService.listarPedidos(pageable);
+
+        PagedResponseWrapper<PedidoResponseDTO> response = new PagedResponseWrapper<>(pedidos);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}/status")
+    @Operation(summary = "Atualizar status do pedido",
+               description = "Atualiza o status de um pedido")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Status atualizado com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Pedido não encontrado"),
+        @ApiResponse(responseCode = "400", description = "Transição de status inválida")
+    })
+    public ResponseEntity<ApiResponseWrapper<PedidoResponseDTO>> atualizarStatus(
+            @Parameter(description = "ID do pedido")
+            @PathVariable Long id,
+            @Valid @RequestBody StatusPedidoDTO statusDTO) {
+
+        PedidoResponseDTO pedido = pedidoService.atualizarStatusPedido(id, statusDTO.getStatus());
+        ApiResponseWrapper<PedidoResponseDTO> response =
+            new ApiResponseWrapper<>(true, pedido, "Status atualizado com sucesso");
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Cancelar pedido",
+               description = "Cancela um pedido se possível")
+    @ApiResponses({
+        @ApiResponse(responseCode = "204", description = "Pedido cancelado com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Pedido não encontrado"),
+        @ApiResponse(responseCode = "400", description = "Pedido não pode ser cancelado")
+    })
+    public ResponseEntity<Void> cancelarPedido(
+            @Parameter(description = "ID do pedido")
+            @PathVariable Long id) {
+
+        pedidoService.cancelarPedido(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/cliente/{clienteId}")
-    public ResponseEntity<List<Pedido>> listarPorCliente(@PathVariable Long clienteId) {
-        List<Pedido> pedidos = pedidoService.listarPorCliente(clienteId);
-        return ResponseEntity.ok(pedidos);
+    @Operation(summary = "Histórico do cliente",
+               description = "Lista todos os pedidos de um cliente")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Histórico recuperado com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Cliente não encontrado")
+    })
+    public ResponseEntity<ApiResponseWrapper<List<PedidoResponseDTO>>> buscarPorCliente(
+            @Parameter(description = "ID do cliente")
+            @PathVariable Long clienteId) {
+
+        List<PedidoResponseDTO> pedidos = pedidoService.buscarPedidosPorCliente(clienteId);
+        ApiResponseWrapper<List<PedidoResponseDTO>> response =
+            new ApiResponseWrapper<>(true, pedidos, "Histórico recuperado com sucesso");
+
+        return ResponseEntity.ok(response);
     }
 
-    /*
-    Buscar pedido por número
-    útil para o cliente rastrear o próprio pedido usando o
-    código (numeroPedido) informado na hora da compra
-    */
-    @GetMapping("/numero/{numeroPedido}")
-    public ResponseEntity<?> buscarPorNumero(@PathVariable String numeroPedido) {
-        Optional<Pedido> pedido = pedidoService.buscarPorNumero(numeroPedido);
+    @GetMapping("/restaurante/{restauranteId}")
+    @Operation(summary = "Pedidos do restaurante",
+               description = "Lista todos os pedidos de um restaurante")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Pedidos recuperados com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Restaurante não encontrado")
+    })
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<ApiResponseWrapper<List<PedidoResponseDTO>>> buscarPorRestaurante(
+            @Parameter(description = "ID do restaurante")
+            @PathVariable Long restauranteId,
+            @Parameter(description = "Status do pedido")
+            @RequestParam(required = false) StatusPedido status) {
 
-        if (pedido.isPresent()) {
-            return ResponseEntity.ok(pedido.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        List<PedidoResponseDTO> pedidos =
+            pedidoService.buscarPedidosPorRestaurante(restauranteId, status);
+
+        ApiResponseWrapper<List<PedidoResponseDTO>> response =
+            new ApiResponseWrapper<>(true, pedidos, "Pedidos recuperados com sucesso");
+
+        return ResponseEntity.ok(response);
     }
 
-    /*
-    Atualizar status do pedido
-    através do verbo PUT estamos alterando o status do pedido
-    (ex: PENDENTE -> CONFIRMADO -> PREPARANDO -> SAIU_PARA_ENTREGA -> ENTREGUE)
-    */
-    @PutMapping("/{pedidoId}/status")
-    public ResponseEntity<?> atualizarStatus(@PathVariable Long pedidoId,
-                                              @RequestParam StatusPedido status) {
-        try {
-            // ATENÇÃO: este método precisa existir no PedidoService.
-            // Ele deve apenas alterar o status do pedido para o valor recebido,
-            // e não deve reutilizar a lógica de cancelamento.
-            Pedido pedido = pedidoService.atualizarStatus(pedidoId, status);
-            return ResponseEntity.ok(pedido);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erro interno do servidor");
-        }
-    }
+    @PostMapping("/calcular")
+    @Operation(summary = "Calcular total do pedido",
+               description = "Calcula o total de um pedido sem salvá-lo")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Total calculado com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+        @ApiResponse(responseCode = "404", description = "Produto não encontrado")
+    })
+    public ResponseEntity<ApiResponseWrapper<CalculoPedidoResponseDTO>> calcularTotal(
+            @Valid @RequestBody
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                description = "Itens para cálculo"
+            ) CalculoPedidoDTO dto) {
 
-    /*
-    Cancelar pedido
-    através do verbo PUT estamos alterando o status do pedido para CANCELADO,
-    com um motivo opcional informado via parâmetro da requisição
-    */
-    @PutMapping("/{pedidoId}/cancelar")
-    public ResponseEntity<?> cancelarPedido(@PathVariable Long pedidoId,
-                                             @RequestParam(required = false) String motivo) {
-        try {
-            Pedido pedido = pedidoService.cancelarPedido(pedidoId, motivo);
-            return ResponseEntity.ok(pedido);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erro interno do servidor");
-        }
+        CalculoPedidoResponseDTO calculo = pedidoService.calcularTotalPedido(dto);
+        ApiResponseWrapper<CalculoPedidoResponseDTO> response =
+            new ApiResponseWrapper<>(true, calculo, "Total calculado com sucesso");
+
+        return ResponseEntity.ok(response);
     }
 }
