@@ -16,7 +16,7 @@ import java.util.Optional;
 
 // Iniciando o controller REST para o Cliente
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping({"/clientes", "/api/clientes"})
 @CrossOrigin(origins = "*") // Permições de acesso para qualquer origem utilizando a expressão "*"
 public class ClienteController {
 
@@ -52,10 +52,8 @@ public class ClienteController {
     Buscar cliente por ID
     */
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable Long id,
-        @Valid @RequestBody ClienteDTO dto
-    ) {
-        ClienteResponseDTO cliente = clienteService.atualizarCliente(id, dto);
+    public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
+        ClienteResponseDTO cliente = clienteService.buscarClientePorId(id);
 
         if (cliente != null) {
             return ResponseEntity.ok(cliente);

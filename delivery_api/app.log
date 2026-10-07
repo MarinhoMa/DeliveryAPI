@@ -1,0 +1,646 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.deliverytech:delivery-api >--------------------
+[INFO] Building  0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.1.1:run (default-cli) > test-compile @ delivery-api >>>
+[INFO] 
+[INFO] --- jacoco:0.8.15:prepare-agent (default) @ delivery-api ---
+[INFO] argLine set to -javaagent:C:\\Users\\anama\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.15\\org.jacoco.agent-0.8.15-runtime.jar=destfile=C:\\Marinho_Matheus\\FAT\\delivery_api\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ delivery-api ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ delivery-api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ delivery-api ---
+[INFO] skip non existing resourceDirectory C:\Marinho_Matheus\FAT\delivery_api\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ delivery-api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.1.1:run (default-cli) < test-compile @ delivery-api <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.1.1:run (default-cli) @ delivery-api ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-06 20:59:28.541 [restartedMain] INFO  [] c.d.d.DeliveryApiApplication - Starting DeliveryApiApplication using Java 21.0.12 with PID 20352 (C:\Marinho_Matheus\FAT\delivery_api\target\classes started by anama in C:\Marinho_Matheus\FAT\delivery_api)
+2026-10-06 20:59:28.541 [restartedMain] DEBUG [] c.d.d.DeliveryApiApplication - Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-06 20:59:28.541 [restartedMain] INFO  [] c.d.d.DeliveryApiApplication - No active profile set, falling back to 1 default profile: "default"
+2026-10-06 20:59:28.608 [restartedMain] INFO  [] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-06 20:59:28.610 [restartedMain] INFO  [] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-06 20:59:30.052 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-06 20:59:30.069 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-06 20:59:30.236 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 161 ms. Found 5 JPA repository interfaces.
+2026-10-06 20:59:31.586 [restartedMain] INFO  [] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-10-06 20:59:31.620 [restartedMain] INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-10-06 20:59:31.627 [restartedMain] INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-06 20:59:31.627 [restartedMain] INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-06 20:59:31.738 [restartedMain] INFO  [] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 3128 ms
+2026-10-06 20:59:33.519 [restartedMain] INFO  [] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-06 20:59:33.571 [restartedMain] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-10-06 20:59:33.952 [restartedMain] INFO  [] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:deliverydb user=SA
+2026-10-06 20:59:33.952 [restartedMain] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-10-06 20:59:34.004 [restartedMain] WARN  [] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+Hibernate: 
+    drop table if exists cliente cascade 
+Hibernate: 
+    drop table if exists item_pedido cascade 
+Hibernate: 
+    drop table if exists pedido cascade 
+Hibernate: 
+    drop table if exists produto cascade 
+Hibernate: 
+    drop table if exists restaurante cascade 
+Hibernate: 
+    drop table if exists usuario cascade 
+Hibernate: 
+    create table cliente (
+        ativo boolean not null,
+        id bigint generated by default as identity,
+        cpf varchar(255),
+        email varchar(255),
+        endereco varchar(255),
+        nome varchar(255),
+        telefone varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table item_pedido (
+        preco_total numeric(38,2),
+        preco_unitario numeric(38,2),
+        quantidade integer not null,
+        id bigint generated by default as identity,
+        pedido_id bigint,
+        produto_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table pedido (
+        entrega boolean,
+        subtotal numeric(38,2),
+        taxa_entrega numeric(38,2),
+        valor_total numeric(38,2),
+        cliente_id bigint,
+        data_pedido timestamp(6),
+        id bigint generated by default as identity,
+        restaurante_id bigint,
+        numero_pedido varchar(255),
+        status_pedido enum ('CANCELADO','CONFIRMADO','ENTREGUE','PENDENTE','PREPARANDO','SAIU_PARA_ENTREGA'),
+        primary key (id)
+    )
+Hibernate: 
+    create table produto (
+        disponivel boolean not null,
+        preco numeric(38,2),
+        id bigint generated by default as identity,
+        restaurante_id bigint,
+        categoria varchar(255),
+        descricao varchar(255),
+        nome varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table restaurante (
+        ativo boolean not null,
+        avaliacao numeric(38,2),
+        taxa_entrega numeric(38,2),
+        tempo_entrega integer,
+        data_cadastro timestamp(6),
+        id bigint generated by default as identity,
+        categoria varchar(255),
+        endereco varchar(255),
+        horario_funcionamento varchar(255),
+        nome varchar(255),
+        telefone varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table usuario (
+        ativo boolean not null,
+        data_criacao timestamp(6) not null,
+        id bigint generated by default as identity,
+        restaurante_id bigint,
+        email varchar(255) not null unique,
+        nome varchar(255) not null,
+        senha varchar(255) not null,
+        role enum ('ADMIN','CLIENTE','ENTREGADOR','RESTAURANTE') not null,
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists item_pedido 
+       add constraint FK60ym08cfoysa17wrn1swyiuda 
+       foreign key (pedido_id) 
+       references pedido
+Hibernate: 
+    alter table if exists item_pedido 
+       add constraint FKtk55mn6d6bvl5h0no5uagi3sf 
+       foreign key (produto_id) 
+       references produto
+Hibernate: 
+    alter table if exists pedido 
+       add constraint FK30s8j2ktpay6of18lbyqn3632 
+       foreign key (cliente_id) 
+       references cliente
+Hibernate: 
+    alter table if exists pedido 
+       add constraint FK3eud5cqmgsnltyk704hu3qj71 
+       foreign key (restaurante_id) 
+       references restaurante
+Hibernate: 
+    alter table if exists produto 
+       add constraint FKb9jhjyghjcn25guim7q4pt8qx 
+       foreign key (restaurante_id) 
+       references restaurante
+2026-10-06 20:59:36.119 [restartedMain] INFO  [] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-06 20:59:36.252 [restartedMain] INFO  [] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-06 20:59:36.636 [restartedMain] DEBUG [] c.d.d.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-10-06 20:59:36.636 [restartedMain] DEBUG [] o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+2026-10-06 20:59:36.756 [restartedMain] INFO  [] o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-10-06 20:59:36.768 [restartedMain] WARN  [] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-10-06 20:59:39.419 [restartedMain] DEBUG [] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-10-06 20:59:39.702 [restartedMain] DEBUG [] o.s.w.s.m.m.a.RequestMappingHandlerMapping - 43 mappings in 'requestMappingHandlerMapping'
+2026-10-06 20:59:39.769 [restartedMain] DEBUG [] o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-10-06 20:59:39.827 [restartedMain] DEBUG [] o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-10-06 20:59:39.951 [restartedMain] DEBUG [] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-10-06 20:59:41.364 [restartedMain] INFO  [] o.s.b.h.a.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:deliverydb'
+2026-10-06 20:59:41.574 [restartedMain] INFO  [] o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
+2026-10-06 20:59:41.751 [restartedMain] INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-10-06 20:59:41.772 [restartedMain] INFO  [] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-10-06 20:59:41.790 [restartedMain] INFO  [] c.d.d.DeliveryApiApplication - Started DeliveryApiApplication in 13.871 seconds (process running for 14.405)
+2026-10-06 21:00:40.288 [http-nio-8080-exec-1] INFO  [] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-06 21:00:40.288 [http-nio-8080-exec-1] INFO  [] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-06 21:00:40.288 [http-nio-8080-exec-1] DEBUG [] o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-10-06 21:00:40.288 [http-nio-8080-exec-1] DEBUG [] o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-10-06 21:00:40.315 [http-nio-8080-exec-1] DEBUG [] o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6f8019d3
+2026-10-06 21:00:40.315 [http-nio-8080-exec-1] DEBUG [] o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@706d2299
+2026-10-06 21:00:40.315 [http-nio-8080-exec-1] DEBUG [] o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-10-06 21:00:40.315 [http-nio-8080-exec-1] INFO  [] o.s.web.servlet.DispatcherServlet - Completed initialization in 27 ms
+2026-10-06 21:00:40.372 [http-nio-8080-exec-1] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-10-06 21:00:40.404 [http-nio-8080-exec-1] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-10-06 21:00:40.414 [http-nio-8080-exec-1] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-10-06 21:00:40.431 [http-nio-8080-exec-1] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-10-06 21:00:40.457 [http-nio-8080-exec-1] DEBUG [297c91f4ca364c5e] o.s.web.servlet.DispatcherServlet - GET "/actuator/health", parameters={}
+2026-10-06 21:00:40.497 [http-nio-8080-exec-1] DEBUG [297c91f4ca364c5e] o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/octet-stream" to []
+2026-10-06 21:00:40.549 [http-nio-8080-exec-1] DEBUG [297c91f4ca364c5e] o.s.web.client.RestTemplate - HTTP GET https://httpbin.org/status/200
+2026-10-06 21:00:40.549 [http-nio-8080-exec-1] DEBUG [297c91f4ca364c5e] o.s.web.client.RestTemplate - Accept=[text/plain, application/json, application/yaml, application/*+json, */*]
+2026-10-06 21:00:41.515 [AsyncReporter{ZipkinHttpClientSender{http://localhost:9411/api/v2/spans}}] WARN  [] z.r.i.AsyncReporter$BoundedAsyncReporter - Spans were dropped due to exceptions. All subsequent errors will be logged at FINE level.
+2026-10-06 21:00:41.515 [AsyncReporter{ZipkinHttpClientSender{http://localhost:9411/api/v2/spans}}] WARN  [] z.r.i.AsyncReporter$BoundedAsyncReporter - Dropped 2 spans due to ConnectException()
+java.net.ConnectException
+	at java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:955)
+	at java.net.http/jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:133)
+	at org.springframework.boot.zipkin.autoconfigure.ZipkinHttpClientSender.postSpans(ZipkinHttpClientSender.java:59)
+	at org.springframework.boot.zipkin.autoconfigure.HttpSender.postSpans(HttpSender.java:69)
+	at org.springframework.boot.zipkin.autoconfigure.HttpSender.postSpans(HttpSender.java:41)
+	at zipkin2.reporter.BaseHttpSender.send(BaseHttpSender.java:123)
+	at zipkin2.reporter.internal.AsyncReporter$BoundedAsyncReporter.flush(AsyncReporter.java:266)
+	at zipkin2.reporter.internal.AsyncReporter$Flusher.run(AsyncReporter.java:352)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.ConnectException
+	at java.net.http/jdk.internal.net.http.common.Utils.toConnectException(Utils.java:1065)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:227)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.checkRetryConnect(PlainHttpConnection.java:280)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$2(PlainHttpConnection.java:238)
+	at java.base/java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934)
+	at java.base/java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:911)
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1773)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	... 1 common frames omitted
+Caused by: java.nio.channels.ClosedChannelException
+	at java.base/sun.nio.ch.SocketChannelImpl.ensureOpen(SocketChannelImpl.java:202)
+	at java.base/sun.nio.ch.SocketChannelImpl.beginConnect(SocketChannelImpl.java:786)
+	at java.base/sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:874)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$1(PlainHttpConnection.java:210)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:212)
+	... 9 common frames omitted
+2026-10-06 21:00:41.599 [http-nio-8080-exec-1] DEBUG [297c91f4ca364c5e] o.s.web.client.RestTemplate - Response 200 OK
+2026-10-06 21:00:41.632 [http-nio-8080-exec-1] DEBUG [297c91f4ca364c5e] o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/vnd.spring-boot.actuator.v3+json', given [*/*] and supported [application/vnd.spring-boot.actuator.v3+json, application/vnd.spring-boot.actuator.v2+json, application/json]
+2026-10-06 21:00:41.632 [http-nio-8080-exec-1] DEBUG [297c91f4ca364c5e] o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [org.springframework.boot.health.actuate.endpoint.SystemHealthDescriptor@100f02e5]
+2026-10-06 21:00:41.753 [http-nio-8080-exec-1] DEBUG [297c91f4ca364c5e] o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-10-06 21:08:50.941 [File Watcher] INFO  [] o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-10-06 21:08:51.111 [Thread-1] INFO  [] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-06 21:08:51.121 [tomcat-shutdown] INFO  [] o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2026-10-06 21:08:51.141 [tomcat-shutdown] INFO  [] o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-10-06 21:08:51.141 [Thread-1] INFO  [] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2026-10-06 21:08:51.291 [Thread-1] INFO  [] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: 
+    drop table if exists cliente cascade 
+Hibernate: 
+    drop table if exists item_pedido cascade 
+Hibernate: 
+    drop table if exists pedido cascade 
+Hibernate: 
+    drop table if exists produto cascade 
+Hibernate: 
+    drop table if exists restaurante cascade 
+Hibernate: 
+    drop table if exists usuario cascade 
+2026-10-06 21:08:51.412 [Thread-1] WARN  [] o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-240]
+2026-10-06 21:08:51.418 [Thread-1] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-10-06 21:08:51.421 [Thread-1] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-06 21:08:52.372 [restartedMain] INFO  [] c.d.d.DeliveryApiApplication - Starting DeliveryApiApplication using Java 21.0.12 with PID 20352 (C:\Marinho_Matheus\FAT\delivery_api\target\classes started by anama in C:\Marinho_Matheus\FAT\delivery_api)
+2026-10-06 21:08:52.372 [restartedMain] DEBUG [] c.d.d.DeliveryApiApplication - Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-06 21:08:52.372 [restartedMain] INFO  [] c.d.d.DeliveryApiApplication - No active profile set, falling back to 1 default profile: "default"
+2026-10-06 21:08:53.120 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-06 21:08:53.122 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-06 21:08:53.173 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 5 JPA repository interfaces.
+2026-10-06 21:08:53.818 [restartedMain] INFO  [] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-10-06 21:08:53.821 [restartedMain] INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-10-06 21:08:53.821 [restartedMain] INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-06 21:08:53.821 [restartedMain] INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-06 21:08:53.885 [restartedMain] INFO  [] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1504 ms
+2026-10-06 21:08:54.331 [restartedMain] INFO  [] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-06 21:08:54.333 [restartedMain] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-10-06 21:08:54.337 [restartedMain] INFO  [] com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:deliverydb user=SA
+2026-10-06 21:08:54.337 [restartedMain] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-10-06 21:08:54.339 [restartedMain] WARN  [] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+Hibernate: 
+    drop table if exists cliente cascade 
+Hibernate: 
+    drop table if exists item_pedido cascade 
+Hibernate: 
+    drop table if exists pedido cascade 
+Hibernate: 
+    drop table if exists produto cascade 
+Hibernate: 
+    drop table if exists restaurante cascade 
+Hibernate: 
+    drop table if exists usuario cascade 
+Hibernate: 
+    create table cliente (
+        ativo boolean not null,
+        id bigint generated by default as identity,
+        cpf varchar(255),
+        email varchar(255),
+        endereco varchar(255),
+        nome varchar(255),
+        telefone varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table item_pedido (
+        preco_total numeric(38,2),
+        preco_unitario numeric(38,2),
+        quantidade integer not null,
+        id bigint generated by default as identity,
+        pedido_id bigint,
+        produto_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table pedido (
+        entrega boolean,
+        subtotal numeric(38,2),
+        taxa_entrega numeric(38,2),
+        valor_total numeric(38,2),
+        cliente_id bigint,
+        data_pedido timestamp(6),
+        id bigint generated by default as identity,
+        restaurante_id bigint,
+        numero_pedido varchar(255),
+        status_pedido enum ('CANCELADO','CONFIRMADO','ENTREGUE','PENDENTE','PREPARANDO','SAIU_PARA_ENTREGA'),
+        primary key (id)
+    )
+Hibernate: 
+    create table produto (
+        disponivel boolean not null,
+        preco numeric(38,2),
+        id bigint generated by default as identity,
+        restaurante_id bigint,
+        categoria varchar(255),
+        descricao varchar(255),
+        nome varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table restaurante (
+        ativo boolean not null,
+        avaliacao numeric(38,2),
+        taxa_entrega numeric(38,2),
+        tempo_entrega integer,
+        data_cadastro timestamp(6),
+        id bigint generated by default as identity,
+        categoria varchar(255),
+        endereco varchar(255),
+        horario_funcionamento varchar(255),
+        nome varchar(255),
+        telefone varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table usuario (
+        ativo boolean not null,
+        data_criacao timestamp(6) not null,
+        id bigint generated by default as identity,
+        restaurante_id bigint,
+        email varchar(255) not null unique,
+        nome varchar(255) not null,
+        senha varchar(255) not null,
+        role enum ('ADMIN','CLIENTE','ENTREGADOR','RESTAURANTE') not null,
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists item_pedido 
+       add constraint FK60ym08cfoysa17wrn1swyiuda 
+       foreign key (pedido_id) 
+       references pedido
+Hibernate: 
+    alter table if exists item_pedido 
+       add constraint FKtk55mn6d6bvl5h0no5uagi3sf 
+       foreign key (produto_id) 
+       references produto
+Hibernate: 
+    alter table if exists pedido 
+       add constraint FK30s8j2ktpay6of18lbyqn3632 
+       foreign key (cliente_id) 
+       references cliente
+Hibernate: 
+    alter table if exists pedido 
+       add constraint FK3eud5cqmgsnltyk704hu3qj71 
+       foreign key (restaurante_id) 
+       references restaurante
+Hibernate: 
+    alter table if exists produto 
+       add constraint FKb9jhjyghjcn25guim7q4pt8qx 
+       foreign key (restaurante_id) 
+       references restaurante
+2026-10-06 21:08:54.654 [restartedMain] INFO  [] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-06 21:08:54.911 [restartedMain] DEBUG [] c.d.d.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-10-06 21:08:54.915 [restartedMain] DEBUG [] o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+2026-10-06 21:08:54.985 [restartedMain] INFO  [] o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-10-06 21:08:54.987 [restartedMain] WARN  [] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-10-06 21:08:55.776 [restartedMain] DEBUG [] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-10-06 21:08:55.944 [restartedMain] DEBUG [] o.s.w.s.m.m.a.RequestMappingHandlerMapping - 43 mappings in 'requestMappingHandlerMapping'
+2026-10-06 21:08:55.988 [restartedMain] DEBUG [] o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-10-06 21:08:56.011 [restartedMain] DEBUG [] o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-10-06 21:08:56.041 [restartedMain] DEBUG [] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-10-06 21:08:56.487 [restartedMain] INFO  [] o.s.b.h.a.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:deliverydb'
+2026-10-06 21:08:56.587 [restartedMain] INFO  [] o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
+2026-10-06 21:08:56.670 [restartedMain] INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-10-06 21:08:56.689 [restartedMain] INFO  [] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-10-06 21:08:56.703 [restartedMain] INFO  [] c.d.d.DeliveryApiApplication - Started DeliveryApiApplication in 4.416 seconds (process running for 569.319)
+2026-10-06 21:08:56.703 [restartedMain] INFO  [] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-10-06 21:11:12.575 [File Watcher] INFO  [] o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2026-10-06 21:11:12.602 [Thread-5] INFO  [] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-06 21:11:12.608 [tomcat-shutdown] INFO  [] o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2026-10-06 21:11:12.619 [tomcat-shutdown] INFO  [] o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-10-06 21:11:12.619 [Thread-5] INFO  [] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2026-10-06 21:11:12.634 [Thread-5] INFO  [] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: 
+    drop table if exists cliente cascade 
+Hibernate: 
+    drop table if exists item_pedido cascade 
+Hibernate: 
+    drop table if exists pedido cascade 
+Hibernate: 
+    drop table if exists produto cascade 
+Hibernate: 
+    drop table if exists restaurante cascade 
+Hibernate: 
+    drop table if exists usuario cascade 
+2026-10-06 21:11:12.664 [Thread-5] WARN  [] o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-240]
+2026-10-06 21:11:12.667 [Thread-5] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-10-06 21:11:12.667 [Thread-5] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-06 21:11:13.929 [restartedMain] INFO  [] c.d.d.DeliveryApiApplication - Starting DeliveryApiApplication using Java 21.0.12 with PID 20352 (C:\Marinho_Matheus\FAT\delivery_api\target\classes started by anama in C:\Marinho_Matheus\FAT\delivery_api)
+2026-10-06 21:11:13.929 [restartedMain] DEBUG [] c.d.d.DeliveryApiApplication - Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-06 21:11:13.929 [restartedMain] INFO  [] c.d.d.DeliveryApiApplication - No active profile set, falling back to 1 default profile: "default"
+2026-10-06 21:11:14.455 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-06 21:11:14.455 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-06 21:11:14.506 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 5 JPA repository interfaces.
+2026-10-06 21:11:14.912 [restartedMain] INFO  [] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-10-06 21:11:14.912 [restartedMain] INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-10-06 21:11:14.914 [restartedMain] INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-06 21:11:14.914 [restartedMain] INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-06 21:11:14.952 [restartedMain] INFO  [] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1023 ms
+2026-10-06 21:11:15.257 [restartedMain] INFO  [] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-06 21:11:15.262 [restartedMain] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2026-10-06 21:11:15.268 [restartedMain] INFO  [] com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection conn20: url=jdbc:h2:mem:deliverydb user=SA
+2026-10-06 21:11:15.270 [restartedMain] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2026-10-06 21:11:15.272 [restartedMain] WARN  [] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+Hibernate: 
+    drop table if exists cliente cascade 
+Hibernate: 
+    drop table if exists item_pedido cascade 
+Hibernate: 
+    drop table if exists pedido cascade 
+Hibernate: 
+    drop table if exists produto cascade 
+Hibernate: 
+    drop table if exists restaurante cascade 
+Hibernate: 
+    drop table if exists usuario cascade 
+Hibernate: 
+    create table cliente (
+        ativo boolean not null,
+        id bigint generated by default as identity,
+        cpf varchar(255),
+        email varchar(255),
+        endereco varchar(255),
+        nome varchar(255),
+        telefone varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table item_pedido (
+        preco_total numeric(38,2),
+        preco_unitario numeric(38,2),
+        quantidade integer not null,
+        id bigint generated by default as identity,
+        pedido_id bigint,
+        produto_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table pedido (
+        entrega boolean,
+        subtotal numeric(38,2),
+        taxa_entrega numeric(38,2),
+        valor_total numeric(38,2),
+        cliente_id bigint,
+        data_pedido timestamp(6),
+        id bigint generated by default as identity,
+        restaurante_id bigint,
+        numero_pedido varchar(255),
+        status_pedido enum ('CANCELADO','CONFIRMADO','ENTREGUE','PENDENTE','PREPARANDO','SAIU_PARA_ENTREGA'),
+        primary key (id)
+    )
+Hibernate: 
+    create table produto (
+        disponivel boolean not null,
+        preco numeric(38,2),
+        id bigint generated by default as identity,
+        restaurante_id bigint,
+        categoria varchar(255),
+        descricao varchar(255),
+        nome varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table restaurante (
+        ativo boolean not null,
+        avaliacao numeric(38,2),
+        taxa_entrega numeric(38,2),
+        tempo_entrega integer,
+        data_cadastro timestamp(6),
+        id bigint generated by default as identity,
+        categoria varchar(255),
+        endereco varchar(255),
+        horario_funcionamento varchar(255),
+        nome varchar(255),
+        telefone varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table usuario (
+        ativo boolean not null,
+        data_criacao timestamp(6) not null,
+        id bigint generated by default as identity,
+        restaurante_id bigint,
+        email varchar(255) not null unique,
+        nome varchar(255) not null,
+        senha varchar(255) not null,
+        role enum ('ADMIN','CLIENTE','ENTREGADOR','RESTAURANTE') not null,
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists item_pedido 
+       add constraint FK60ym08cfoysa17wrn1swyiuda 
+       foreign key (pedido_id) 
+       references pedido
+Hibernate: 
+    alter table if exists item_pedido 
+       add constraint FKtk55mn6d6bvl5h0no5uagi3sf 
+       foreign key (produto_id) 
+       references produto
+Hibernate: 
+    alter table if exists pedido 
+       add constraint FK30s8j2ktpay6of18lbyqn3632 
+       foreign key (cliente_id) 
+       references cliente
+Hibernate: 
+    alter table if exists pedido 
+       add constraint FK3eud5cqmgsnltyk704hu3qj71 
+       foreign key (restaurante_id) 
+       references restaurante
+Hibernate: 
+    alter table if exists produto 
+       add constraint FKb9jhjyghjcn25guim7q4pt8qx 
+       foreign key (restaurante_id) 
+       references restaurante
+2026-10-06 21:11:15.650 [restartedMain] INFO  [] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-06 21:11:15.846 [restartedMain] DEBUG [] c.d.d.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-10-06 21:11:15.846 [restartedMain] DEBUG [] o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+2026-10-06 21:11:15.912 [restartedMain] INFO  [] o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-10-06 21:11:15.912 [restartedMain] WARN  [] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-10-06 21:11:16.512 [restartedMain] DEBUG [] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2026-10-06 21:11:16.662 [restartedMain] DEBUG [] o.s.w.s.m.m.a.RequestMappingHandlerMapping - 43 mappings in 'requestMappingHandlerMapping'
+2026-10-06 21:11:16.712 [restartedMain] DEBUG [] o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-10-06 21:11:16.745 [restartedMain] DEBUG [] o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-10-06 21:11:16.778 [restartedMain] DEBUG [] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-10-06 21:11:17.145 [restartedMain] INFO  [] o.s.b.h.a.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:deliverydb'
+2026-10-06 21:11:17.245 [restartedMain] INFO  [] o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoints beneath base path '/actuator'
+2026-10-06 21:11:17.345 [restartedMain] INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-10-06 21:11:17.345 [restartedMain] INFO  [] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-10-06 21:11:17.355 [restartedMain] INFO  [] c.d.d.DeliveryApiApplication - Started DeliveryApiApplication in 3.506 seconds (process running for 709.972)
+2026-10-06 21:11:17.355 [restartedMain] INFO  [] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-10-06 21:13:30.418 [http-nio-8080-exec-1] INFO  [] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-06 21:13:30.419 [http-nio-8080-exec-1] INFO  [] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-06 21:13:30.420 [http-nio-8080-exec-1] DEBUG [] o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-10-06 21:13:30.420 [http-nio-8080-exec-1] DEBUG [] o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-10-06 21:13:30.424 [http-nio-8080-exec-1] DEBUG [] o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@77009938
+2026-10-06 21:13:30.425 [http-nio-8080-exec-1] DEBUG [] o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@55fd56c2
+2026-10-06 21:13:30.426 [http-nio-8080-exec-1] DEBUG [] o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-10-06 21:13:30.426 [http-nio-8080-exec-1] INFO  [] o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2026-10-06 21:13:30.428 [http-nio-8080-exec-1] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-10-06 21:13:30.432 [http-nio-8080-exec-1] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-10-06 21:13:30.433 [http-nio-8080-exec-1] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-10-06 21:13:30.435 [http-nio-8080-exec-1] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-10-06 21:13:30.437 [http-nio-8080-exec-1] DEBUG [6a8b2e29efb84f2c] o.s.web.servlet.DispatcherServlet - GET "/actuator/health", parameters={}
+2026-10-06 21:13:30.441 [http-nio-8080-exec-1] DEBUG [6a8b2e29efb84f2c] o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/octet-stream" to []
+2026-10-06 21:13:30.445 [http-nio-8080-exec-1] DEBUG [6a8b2e29efb84f2c] o.s.web.client.RestTemplate - HTTP GET https://httpbin.org/status/200
+2026-10-06 21:13:30.446 [http-nio-8080-exec-1] DEBUG [6a8b2e29efb84f2c] o.s.web.client.RestTemplate - Accept=[text/plain, application/json, application/yaml, application/*+json, */*]
+2026-10-06 21:13:31.019 [http-nio-8080-exec-1] DEBUG [6a8b2e29efb84f2c] o.s.web.client.RestTemplate - Response 200 OK
+2026-10-06 21:13:31.024 [http-nio-8080-exec-1] DEBUG [6a8b2e29efb84f2c] o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/vnd.spring-boot.actuator.v3+json', given [*/*] and supported [application/vnd.spring-boot.actuator.v3+json, application/vnd.spring-boot.actuator.v2+json, application/json]
+2026-10-06 21:13:31.025 [http-nio-8080-exec-1] DEBUG [6a8b2e29efb84f2c] o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [org.springframework.boot.health.actuate.endpoint.SystemHealthDescriptor@6ca49427]
+2026-10-06 21:13:31.037 [http-nio-8080-exec-1] DEBUG [6a8b2e29efb84f2c] o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-10-06 21:13:31.452 [AsyncReporter{ZipkinHttpClientSender{http://localhost:9411/api/v2/spans}}] WARN  [] z.r.i.AsyncReporter$BoundedAsyncReporter - Spans were dropped due to exceptions. All subsequent errors will be logged at FINE level.
+2026-10-06 21:13:31.453 [AsyncReporter{ZipkinHttpClientSender{http://localhost:9411/api/v2/spans}}] WARN  [] z.r.i.AsyncReporter$BoundedAsyncReporter - Dropped 5 spans due to ConnectException()
+java.net.ConnectException
+	at java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:955)
+	at java.net.http/jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:133)
+	at org.springframework.boot.zipkin.autoconfigure.ZipkinHttpClientSender.postSpans(ZipkinHttpClientSender.java:59)
+	at org.springframework.boot.zipkin.autoconfigure.HttpSender.postSpans(HttpSender.java:69)
+	at org.springframework.boot.zipkin.autoconfigure.HttpSender.postSpans(HttpSender.java:41)
+	at zipkin2.reporter.BaseHttpSender.send(BaseHttpSender.java:123)
+	at zipkin2.reporter.internal.AsyncReporter$BoundedAsyncReporter.flush(AsyncReporter.java:266)
+	at zipkin2.reporter.internal.AsyncReporter$Flusher.run(AsyncReporter.java:352)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.ConnectException
+	at java.net.http/jdk.internal.net.http.common.Utils.toConnectException(Utils.java:1065)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:227)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.checkRetryConnect(PlainHttpConnection.java:280)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$2(PlainHttpConnection.java:238)
+	at java.base/java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934)
+	at java.base/java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:911)
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1773)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	... 1 common frames omitted
+Caused by: java.nio.channels.ClosedChannelException
+	at java.base/sun.nio.ch.SocketChannelImpl.ensureOpen(SocketChannelImpl.java:202)
+	at java.base/sun.nio.ch.SocketChannelImpl.beginConnect(SocketChannelImpl.java:786)
+	at java.base/sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:874)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$1(PlainHttpConnection.java:210)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:212)
+	... 9 common frames omitted
+2026-10-06 21:13:45.501 [http-nio-8080-exec-6] DEBUG [] o.s.security.web.FilterChainProxy - Securing POST /api/auth/register
+2026-10-06 21:13:45.503 [http-nio-8080-exec-6] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-10-06 21:13:45.506 [http-nio-8080-exec-6] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-10-06 21:13:45.507 [http-nio-8080-exec-6] DEBUG [] o.s.security.web.FilterChainProxy - Secured POST /api/auth/register
+2026-10-06 21:13:45.508 [http-nio-8080-exec-6] DEBUG [9998ee93a3f04105] o.s.web.servlet.DispatcherServlet - POST "/api/auth/register", parameters={}
+2026-10-06 21:13:45.511 [http-nio-8080-exec-6] DEBUG [9998ee93a3f04105] o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.delivery.delivery_api.controller.AuthController#register(RegisterRequestDTO)
+2026-10-06 21:13:45.643 [http-nio-8080-exec-6] DEBUG [9998ee93a3f04105] o.s.web.method.HandlerMethod - Could not resolve parameter [0] in public org.springframework.http.ResponseEntity<?> com.delivery.delivery_api.controller.AuthController.register(com.delivery.delivery_api.dto.RegisterRequestDTO): JSON parse error: Unexpected character ('n' (code 110)): was expecting double-quote to start property name
+2026-10-06 21:13:45.646 [http-nio-8080-exec-6] DEBUG [9998ee93a3f04105] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.delivery.delivery_api.exception.GlobalExceptionHandler#handleGenericException(Exception, HttpServletRequest)
+2026-10-06 21:13:45.733 [http-nio-8080-exec-6] DEBUG [9998ee93a3f04105] o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2026-10-06 21:13:45.734 [http-nio-8080-exec-6] DEBUG [9998ee93a3f04105] o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [com.delivery.delivery_api.dto.ErrorResponse@41cd6488]
+2026-10-06 21:13:45.738 [http-nio-8080-exec-6] WARN  [9998ee93a3f04105] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('n' (code 110)): was expecting double-quote to start property name]
+2026-10-06 21:13:45.739 [http-nio-8080-exec-6] DEBUG [9998ee93a3f04105] o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
